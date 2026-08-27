@@ -6,8 +6,8 @@
      =========================================================== */
   const CONFIG = {
     whatsappNumber: "77771221309", // +7 777 122 1309, без "+" и пробелов
-    whatsappDefaultText: "Здравствуйте! Хочу узнать подробнее об услугах FSC.KZ.",
-    address: "Республика Казахстан — адрес склада/офиса уточняется",
+    whatsappDefaultText: "Здравствуйте! Хочу узнать подробнее о хранении в Fresh Storage Center.",
+    address: "Алматинская область — точный адрес уточняется",
     email: "info@fsc.kz",
     instagram: "https://instagram.com/fsc.kz",
     telegram: "https://t.me/fsc_kz",
