@@ -212,6 +212,17 @@ button { font-family: inherit; cursor: pointer; }
 .float-slow { animation: float 5s ease-in-out infinite; transform-origin: center; }
 @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
+.reveal-card--photo { padding: 0; line-height: 0; }
+.hero__photo {
+  width: 100%;
+  aspect-ratio: 1374 / 768;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  transition: transform .6s var(--ease);
+}
+.reveal-card--photo:hover .hero__photo { transform: scale(1.04); }
+.reveal-card--photo .reveal-card__glow { border-radius: var(--radius-lg); }
+
 /* ==========================================================================
    About
    ========================================================================== */
@@ -226,7 +237,9 @@ button { font-family: inherit; cursor: pointer; }
   background: rgba(11,61,46,.85); color: var(--white);
   font-size: .75rem; font-weight: 600;
   padding: 6px 12px; border-radius: 999px;
+  width: max-content;
 }
+.media-badge--hero { left: 18px; right: auto; background: rgba(11,61,46,.82); }
 
 /* ==========================================================================
    Services
