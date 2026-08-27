@@ -173,6 +173,23 @@ button { font-family: inherit; cursor: pointer; }
 .blob--1 { width: 420px; height: 420px; background: radial-gradient(circle, var(--green-300), transparent 70%); top: -140px; right: -100px; }
 .blob--2 { width: 320px; height: 320px; background: radial-gradient(circle, var(--earth), transparent 70%); bottom: -80px; left: -80px; opacity: .35; }
 
+.hero__watermark {
+  position: absolute;
+  left: -0.5%;
+  top: 66%;
+  z-index: 0;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(6rem, 15vw, 12rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--green-700);
+  opacity: .1;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
 .hero__inner {
   position: relative; z-index: 1;
   display: grid;
@@ -182,12 +199,30 @@ button { font-family: inherit; cursor: pointer; }
 }
 .hero h1 { font-size: clamp(2.3rem, 4.4vw, 3.4rem); }
 .hero__lead { font-size: 1.05rem; max-width: 52ch; }
-.hero__cta { display: flex; gap: 16px; flex-wrap: wrap; margin: 28px 0 40px; }
+.hero__cta { display: flex; gap: 16px; flex-wrap: wrap; margin: 28px 0 8px; }
 
-.hero__stats { display: flex; gap: 32px; flex-wrap: wrap; }
-.stat { display: flex; flex-direction: column; }
-.stat__num { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; color: var(--green-800); }
-.stat__label { font-size: .82rem; color: var(--ink-soft); max-width: 16ch; }
+.glass-stats {
+  position: absolute;
+  top: 20px; right: 20px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  line-height: normal;
+}
+.glass-stat {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(28, 19, 13, 0.42);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.18);
+  text-align: right;
+}
+.glass-stat__num { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; color: var(--white); }
+.glass-stat__label { font-size: .72rem; color: rgba(255,255,255,.85); max-width: 16ch; }
 
 /* Reveal-card cursor spotlight interaction */
 .reveal-card {
@@ -431,4 +466,9 @@ button { font-family: inherit; cursor: pointer; }
   .hero__stats { gap: 20px; }
   .footer__inner { flex-direction: column; text-align: center; }
   .footer__nav { justify-content: center; }
+  .hero__watermark { display: none; }
+  .glass-stats { top: 12px; right: 12px; gap: 6px; }
+  .glass-stat { padding: 6px 10px; }
+  .glass-stat__num { font-size: 1rem; }
+  .glass-stat__label { font-size: .62rem; }
 }
