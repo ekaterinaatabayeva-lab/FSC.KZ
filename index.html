@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FSC.KZ — Овощехранилище и агросервис</title>
+<meta name="description" content="FSC.KZ — современное овощехранилище и агросервис в Казахстане. Хранение, трейдинг и контроль микроклимата для сельхозпродукции.">
+<link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="header" id="header">
+  <div class="container header__inner">
+    <a href="#top" class="logo">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 3C10 8 5 16 8 26c2 6.5 8 10 12 11 4-1 10-4.5 12-11 3-10-2-18-12-23Z" fill="url(#leafGrad)"/>
+          <path d="M20 8v24M20 14c-3 0-6 2-7 5M20 20c3 0 6 2 7 5" stroke="#0b3d2e" stroke-width="1.4" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="leafGrad" x1="5" y1="3" x2="32" y2="37" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#74C69D"/>
+              <stop offset="1" stop-color="#1B6B3A"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <span class="logo__text">FSC<span class="logo__dot">.KZ</span></span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="#top">Главная</a>
+      <a href="#services">Услуги</a>
+      <a href="#advantages">Преимущества</a>
+      <a href="#about">О компании</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+
+    <div class="header__actions">
+      <a class="btn btn--whatsapp btn--sm" id="wa-header" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.33 4.96L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2Zm5.8 14.16c-.24.68-1.4 1.32-1.93 1.38-.5.06-1.02.28-3.42-.71-2.9-1.19-4.77-4.14-4.92-4.34-.15-.2-1.17-1.56-1.17-2.97s.73-2.1.99-2.39c.25-.28.55-.35.73-.35.19 0 .37 0 .53.01.17.01.4-.06.62.48.24.58.81 2 .88 2.15.07.15.12.32.02.51-.1.2-.15.32-.3.49-.15.17-.3.38-.44.51-.15.14-.3.29-.13.57.17.28.75 1.25 1.62 2.03 1.11 1 2.05 1.31 2.33 1.46.28.15.44.12.6-.07.17-.2.71-.83.9-1.11.19-.29.38-.24.63-.14.26.1 1.65.79 1.94.93.28.14.47.21.53.33.07.13.07.72-.17 1.4Z"/></svg>
+        WhatsApp
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Открыть меню" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true">
+      <div class="blob blob--1"></div>
+      <div class="blob blob--2"></div>
+      <svg class="hero__rows" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 220 Q 360 150 720 220 T 1440 220 V400 H0 Z" fill="#eafbf1"/>
+      </svg>
+    </div>
+
+    <div class="container hero__inner">
+      <div class="hero__content" data-reveal>
+        <p class="eyebrow">Овощехранилище и агросервис в Казахстане</p>
+        <h1>Сохраняем урожай.<br>Растим доверие.</h1>
+        <p class="hero__lead">
+          FSC.KZ — современный комплекс полного цикла: хранение овощей и сельхозпродукции,
+          трейдинг оптовыми партиями и точный контроль микроклимата на каждом этапе.
+          Мы берём на себя сохранность вашего урожая, чтобы вы могли сосредоточиться на бизнесе.
+        </p>
+        <div class="hero__cta">
+          <a href="#contact" class="btn btn--primary">Оставить заявку</a>
+          <a href="#" class="btn btn--outline wa-link" id="wa-hero" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.33 4.96L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2Zm5.8 14.16c-.24.68-1.4 1.32-1.93 1.38-.5.06-1.02.28-3.42-.71-2.9-1.19-4.77-4.14-4.92-4.34-.15-.2-1.17-1.56-1.17-2.97s.73-2.1.99-2.39c.25-.28.55-.35.73-.35.19 0 .37 0 .53.01.17.01.4-.06.62.48.24.58.81 2 .88 2.15.07.15.12.32.02.51-.1.2-.15.32-.3.49-.15.17-.3.38-.44.51-.15.14-.3.29-.13.57.17.28.75 1.25 1.62 2.03 1.11 1 2.05 1.31 2.33 1.46.28.15.44.12.6-.07.17-.2.71-.83.9-1.11.19-.29.38-.24.63-.14.26.1 1.65.79 1.94.93.28.14.47.21.53.33.07.13.07.72-.17 1.4Z"/></svg>
+            Написать в WhatsApp
+          </a>
+        </div>
+
+        <div class="hero__stats">
+          <div class="stat">
+            <span class="stat__num">15 000+</span>
+            <span class="stat__label">тонн единовременного хранения</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">24/7</span>
+            <span class="stat__label">контроль микроклимата</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">100%</span>
+            <span class="stat__label">прозрачность поставок</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__visual reveal-card" id="heroVisual" data-reveal>
+        <svg viewBox="0 0 480 480" class="hero__illustration" role="img" aria-label="Иллюстрация овощехранилища">
+          <defs>
+            <linearGradient id="silo" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#d8f3dc"/>
+              <stop offset="1" stop-color="#95d5b2"/>
+            </linearGradient>
+            <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#40916c"/>
+              <stop offset="1" stop-color="#1b4332"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="240" cy="430" rx="210" ry="24" fill="#0b3d2e" opacity=".12"/>
+          <rect x="70" y="200" width="340" height="200" rx="14" fill="url(#silo)"/>
+          <rect x="70" y="200" width="340" height="36" rx="14" fill="#1b6b3a"/>
+          <rect x="100" y="260" width="70" height="90" rx="6" fill="#ffffff" opacity=".55"/>
+          <rect x="190" y="260" width="70" height="90" rx="6" fill="#ffffff" opacity=".4"/>
+          <rect x="280" y="260" width="70" height="90" rx="6" fill="#ffffff" opacity=".55"/>
+          <circle cx="120" cy="150" r="46" fill="url(#ground)"/>
+          <circle cx="200" cy="120" r="30" fill="#74c69d"/>
+          <circle cx="270" cy="145" r="38" fill="#52b788"/>
+          <path d="M40 400h400" stroke="#1b4332" stroke-width="3" opacity=".25"/>
+          <g class="float-slow">
+            <circle cx="360" cy="90" r="10" fill="#e9c46a"/>
+            <circle cx="390" cy="120" r="6" fill="#e9c46a" opacity=".7"/>
+          </g>
+        </svg>
+        <div class="reveal-card__glow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="container about__inner">
+      <div class="about__text" data-reveal>
+        <p class="eyebrow eyebrow--dark">О компании</p>
+        <h2>Полный цикл заботы об урожае — от приёмки до реализации</h2>
+        <p>
+          FSC.KZ объединяет современный складской комплекс, инженерные системы контроля климата
+          и собственную трейдинговую команду. Мы принимаем продукцию, обеспечиваем правильные условия
+          хранения и помогаем находить покупателей — быстро, прозрачно и без потерь качества.
+        </p>
+        <ul class="about__points">
+          <li>Современные складские мощности с регулируемой температурой и влажностью</li>
+          <li>Собственная логистика и упаковка под требования клиента</li>
+          <li>Прямые контракты с производителями и оптовыми покупателями</li>
+        </ul>
+      </div>
+      <div class="about__media reveal-card" data-reveal>
+        <svg viewBox="0 0 400 320" role="img" aria-label="Складской комплекс">
+          <rect width="400" height="320" rx="22" fill="#eafbf1"/>
+          <rect x="40" y="120" width="320" height="150" rx="10" fill="#95d5b2"/>
+          <rect x="40" y="120" width="320" height="26" rx="10" fill="#2f855a"/>
+          <polygon points="40,120 200,60 360,120" fill="#1b4332"/>
+          <rect x="80" y="170" width="50" height="70" rx="4" fill="#ffffff" opacity=".6"/>
+          <rect x="150" y="170" width="50" height="70" rx="4" fill="#ffffff" opacity=".45"/>
+          <rect x="220" y="170" width="50" height="70" rx="4" fill="#ffffff" opacity=".6"/>
+          <rect x="290" y="170" width="50" height="70" rx="4" fill="#ffffff" opacity=".45"/>
+          <circle cx="200" cy="90" r="10" fill="#e9c46a"/>
+        </svg>
+        <div class="reveal-card__glow"></div>
+        <span class="media-badge">Фото объекта — скоро</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow eyebrow--dark">Наши услуги</p>
+        <h2>Три направления — один результат: сохранённое качество</h2>
+      </div>
+
+      <div class="cards">
+        <article class="card" data-reveal>
+          <div class="card__icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="18" width="36" height="24" rx="4" fill="#d8f3dc"/><path d="M6 22 24 8l18 14" stroke="#1b6b3a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="16" y="26" width="16" height="16" rx="2" fill="#40916c"/></svg>
+          </div>
+          <h3>Хранение</h3>
+          <p>Приёмка и размещение овощей и сельхозпродукции в складах с регулируемым температурно-влажностным режимом. Контроль качества на каждом этапе хранения.</p>
+          <div class="card__more">
+            <p>Гибкие сроки хранения, раздельные зоны по видам продукции, учёт партий и остатков в реальном времени.</p>
+            <a href="#contact" class="card__link">Рассчитать хранение →</a>
+          </div>
+        </article>
+
+        <article class="card" data-reveal>
+          <div class="card__icon">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" fill="#d8f3dc"/><path d="M16 24h16M24 16v16" stroke="#1b6b3a" stroke-width="3" stroke-linecap="round"/><path d="M14 14l6 6M34 14l-6 6M14 34l6-6M34 34l-6-6" stroke="#40916c" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Трейдинг</h3>
+          <p>Закупка и реализация сельхозпродукции оптовыми партиями. Прямые контракты с производителями и проверенными покупателями по всему Казахстану.</p>
+          <div class="card__more">
+            <p>Прозрачное ценообразование, сопровождение сделки, помощь с логистикой и документами.</p>
+            <a href="#contact" class="card__link">Обсудить поставку →</a>
+          </div>
+        </article>
+
+        <article class="card" data-reveal>
+          <div class="card__icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="20" y="6" width="8" height="30" rx="4" fill="#d8f3dc"/><circle cx="24" cy="38" r="8" fill="#40916c"/><path d="M24 12v18" stroke="#1b6b3a" stroke-width="3" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Микроклимат</h3>
+          <p>Круглосуточный мониторинг температуры, влажности и вентиляции. Автоматизированные системы поддерживают оптимальные условия для долгой сохранности урожая.</p>
+          <div class="card__more">
+            <p>Датчики и автоматика собственной разработки, отчётность по параметрам хранения по запросу клиента.</p>
+            <a href="#contact" class="card__link">Узнать подробнее →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ADVANTAGES ============ -->
+  <section class="advantages" id="advantages">
+    <div class="container">
+      <div class="section-head section-head--light" data-reveal>
+        <p class="eyebrow eyebrow--light">Почему выбирают нас</p>
+        <h2>Преимущества работы с FSC.KZ</h2>
+      </div>
+
+      <div class="adv-grid">
+        <div class="adv" data-reveal>
+          <div class="adv__icon">🌱</div>
+          <h4>Современное оборудование</h4>
+          <p>Автоматизированные системы климат-контроля и своевременное техническое обслуживание складов.</p>
+        </div>
+        <div class="adv" data-reveal>
+          <div class="adv__icon">✅</div>
+          <h4>Контроль качества</h4>
+          <p>Проверка продукции на приёмке и регулярный мониторинг на всех этапах хранения.</p>
+        </div>
+        <div class="adv" data-reveal>
+          <div class="adv__icon">🚚</div>
+          <h4>Быстрая логистика</h4>
+          <p>Организация доставки и отгрузки по Казахстану в согласованные сроки.</p>
+        </div>
+        <div class="adv" data-reveal>
+          <div class="adv__icon">🤝</div>
+          <h4>Индивидуальный подход</h4>
+          <p>Гибкие условия сотрудничества под объёмы и задачи каждого клиента.</p>
+        </div>
+        <div class="adv" data-reveal>
+          <div class="adv__icon">📊</div>
+          <h4>Прозрачная отчётность</h4>
+          <p>Данные об остатках, партиях и условиях хранения доступны клиенту по запросу.</p>
+        </div>
+        <div class="adv" data-reveal>
+          <div class="adv__icon">⏱</div>
+          <h4>Работаем круглый год</h4>
+          <p>Приём и отгрузка продукции вне зависимости от сезона.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="contact" id="contact">
+    <div class="container contact__inner">
+      <div class="contact__info" data-reveal>
+        <p class="eyebrow eyebrow--dark">Связаться с нами</p>
+        <h2>Обсудим хранение или поставку вашей продукции</h2>
+        <p class="contact__lead">Заполните форму или напишите нам напрямую в WhatsApp — ответим в ближайшее время.</p>
+
+        <ul class="contact__list">
+          <li>
+            <span class="contact__ico">📍</span>
+            <div><strong>Адрес</strong><span data-config="address">Адрес склада/офиса — уточняется</span></div>
+          </li>
+          <li>
+            <span class="contact__ico">📞</span>
+            <div><strong>Телефон</strong><a href="tel:+77771221309">+7 777 122 1309</a></div>
+          </li>
+          <li>
+            <span class="contact__ico">✉️</span>
+            <div><strong>Email</strong><a href="mailto:info@fsc.kz" data-config="email">info@fsc.kz</a></div>
+          </li>
+          <li>
+            <span class="contact__ico">💬</span>
+            <div><strong>Соцсети</strong>
+              <div class="social-row">
+                <a href="#" data-config="instagram" target="_blank" rel="noopener">Instagram</a>
+                <a href="#" data-config="telegram" target="_blank" rel="noopener">Telegram</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <a href="#" class="btn btn--whatsapp wa-link" id="wa-contact" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.33 4.96L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2Zm5.8 14.16c-.24.68-1.4 1.32-1.93 1.38-.5.06-1.02.28-3.42-.71-2.9-1.19-4.77-4.14-4.92-4.34-.15-.2-1.17-1.56-1.17-2.97s.73-2.1.99-2.39c.25-.28.55-.35.73-.35.19 0 .37 0 .53.01.17.01.4-.06.62.48.24.58.81 2 .88 2.15.07.15.12.32.02.51-.1.2-.15.32-.3.49-.15.17-.3.38-.44.51-.15.14-.3.29-.13.57.17.28.75 1.25 1.62 2.03 1.11 1 2.05 1.31 2.33 1.46.28.15.44.12.6-.07.17-.2.71-.83.9-1.11.19-.29.38-.24.63-.14.26.1 1.65.79 1.94.93.28.14.47.21.53.33.07.13.07.72-.17 1.4Z"/></svg>
+          Написать в WhatsApp напрямую
+        </a>
+      </div>
+
+      <form class="contact__form" id="contactForm" data-reveal>
+        <label>
+          Имя
+          <input type="text" name="name" required placeholder="Ваше имя">
+        </label>
+        <label>
+          Телефон
+          <input type="tel" name="phone" required placeholder="+7 (___) ___-__-__">
+        </label>
+        <label>
+          Интересующая услуга
+          <select name="service">
+            <option value="Хранение">Хранение</option>
+            <option value="Трейдинг">Трейдинг</option>
+            <option value="Микроклимат">Микроклимат</option>
+            <option value="Другое">Другое</option>
+          </select>
+        </label>
+        <label>
+          Сообщение
+          <textarea name="message" rows="4" placeholder="Расскажите о задаче: объём, сроки, культура"></textarea>
+        </label>
+        <button type="submit" class="btn btn--primary btn--block">
+          Отправить заявку в WhatsApp
+        </button>
+        <p class="form__hint">Заявка откроется в WhatsApp с заполненным текстом — останется только отправить.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <span class="logo__text">FSC<span class="logo__dot">.KZ</span></span>
+      <p>Овощехранилище и агросервис полного цикла в Казахстане.</p>
+    </div>
+    <nav class="footer__nav">
+      <a href="#top">Главная</a>
+      <a href="#services">Услуги</a>
+      <a href="#advantages">Преимущества</a>
+      <a href="#about">О компании</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <p class="footer__copy">© <span id="year"></span> FSC.KZ. Все права защищены.</p>
+  </div>
+</footer>
+
+<!-- ============ FLOATING WHATSAPP ============ -->
+<a href="#" class="wa-float wa-link" id="wa-float" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.33 4.96L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2Zm5.8 14.16c-.24.68-1.4 1.32-1.93 1.38-.5.06-1.02.28-3.42-.71-2.9-1.19-4.77-4.14-4.92-4.34-.15-.2-1.17-1.56-1.17-2.97s.73-2.1.99-2.39c.25-.28.55-.35.73-.35.19 0 .37 0 .53.01.17.01.4-.06.62.48.24.58.81 2 .88 2.15.07.15.12.32.02.51-.1.2-.15.32-.3.49-.15.17-.3.38-.44.51-.15.14-.3.29-.13.57.17.28.75 1.25 1.62 2.03 1.11 1 2.05 1.31 2.33 1.46.28.15.44.12.6-.07.17-.2.71-.83.9-1.11.19-.29.38-.24.63-.14.26.1 1.65.79 1.94.93.28.14.47.21.53.33.07.13.07.72-.17 1.4Z"/></svg>
+  <span class="wa-float__pulse"></span>
+</a>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
