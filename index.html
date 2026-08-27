@@ -18,15 +18,13 @@
   <div class="container header__inner">
     <a href="#top" class="logo">
       <span class="logo__mark" aria-hidden="true">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 3C10 8 5 16 8 26c2 6.5 8 10 12 11 4-1 10-4.5 12-11 3-10-2-18-12-23Z" fill="url(#leafGrad)"/>
-          <path d="M20 8v24M20 14c-3 0-6 2-7 5M20 20c3 0 6 2 7 5" stroke="#0b3d2e" stroke-width="1.4" stroke-linecap="round"/>
-          <defs>
-            <linearGradient id="leafGrad" x1="5" y1="3" x2="32" y2="37" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#74C69D"/>
-              <stop offset="1" stop-color="#1B6B3A"/>
-            </linearGradient>
-          </defs>
+        <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6,20 L27,6 L48,18 L48,24 L27,13 L6,26 Z" fill="var(--green-700)"/>
+          <circle cx="15" cy="27" r="7" fill="var(--green-900)"/>
+          <circle cx="23" cy="23" r="8" fill="var(--green-900)"/>
+          <circle cx="32" cy="23" r="8" fill="var(--green-900)"/>
+          <circle cx="40" cy="27" r="7" fill="var(--green-900)"/>
+          <circle cx="27" cy="17" r="6" fill="var(--green-900)"/>
         </svg>
       </span>
       <span class="logo__text">FSC<span class="logo__dot">.KZ</span></span>
@@ -60,7 +58,7 @@
       <div class="blob blob--1"></div>
       <div class="blob blob--2"></div>
       <svg class="hero__rows" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0 220 Q 360 150 720 220 T 1440 220 V400 H0 Z" fill="#eafbf1"/>
+        <path d="M0 220 Q 360 150 720 220 T 1440 220 V400 H0 Z" fill="var(--green-50)"/>
       </svg>
     </div>
 
@@ -122,20 +120,10 @@
           <li>Прямые контракты с производителями и оптовыми покупателями</li>
         </ul>
       </div>
-      <div class="about__media reveal-card" data-reveal>
-        <svg viewBox="0 0 400 320" role="img" aria-label="Складской комплекс">
-          <rect width="400" height="320" rx="22" fill="#eafbf1"/>
-          <rect x="40" y="120" width="320" height="150" rx="10" fill="#95d5b2"/>
-          <rect x="40" y="120" width="320" height="26" rx="10" fill="#2f855a"/>
-          <polygon points="40,120 200,60 360,120" fill="#1b4332"/>
-          <rect x="80" y="170" width="50" height="70" rx="4" fill="#ffffff" opacity=".6"/>
-          <rect x="150" y="170" width="50" height="70" rx="4" fill="#ffffff" opacity=".45"/>
-          <rect x="220" y="170" width="50" height="70" rx="4" fill="#ffffff" opacity=".6"/>
-          <rect x="290" y="170" width="50" height="70" rx="4" fill="#ffffff" opacity=".45"/>
-          <circle cx="200" cy="90" r="10" fill="#e9c46a"/>
-        </svg>
+      <div class="about__media reveal-card reveal-card--photo" data-reveal>
+        <img src="assets/images/storage-bags.jpg" alt="Хранение урожая в камере FSC.KZ" loading="lazy" width="960" height="1280">
         <div class="reveal-card__glow"></div>
-        <span class="media-badge">Больше фото — скоро</span>
+        <span class="media-badge">15 000+ тонн единовременно</span>
       </div>
     </div>
   </section>
@@ -150,8 +138,11 @@
 
       <div class="cards">
         <article class="card" data-reveal>
+          <div class="card__media">
+            <img src="assets/images/storage-bay.jpg" alt="Камера хранения FSC.KZ" loading="lazy" width="960" height="1280">
+          </div>
           <div class="card__icon">
-            <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="18" width="36" height="24" rx="4" fill="#d8f3dc"/><path d="M6 22 24 8l18 14" stroke="#1b6b3a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="16" y="26" width="16" height="16" rx="2" fill="#40916c"/></svg>
+            <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="18" width="36" height="24" rx="4" fill="var(--green-100)"/><path d="M6 22 24 8l18 14" stroke="var(--green-700)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="16" y="26" width="16" height="16" rx="2" fill="var(--green-500)"/></svg>
           </div>
           <h3>Хранение</h3>
           <p>Приёмка и размещение овощей и сельхозпродукции в складах с регулируемым температурно-влажностным режимом. Контроль качества на каждом этапе хранения.</p>
@@ -163,7 +154,7 @@
 
         <article class="card" data-reveal>
           <div class="card__icon">
-            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" fill="#d8f3dc"/><path d="M16 24h16M24 16v16" stroke="#1b6b3a" stroke-width="3" stroke-linecap="round"/><path d="M14 14l6 6M34 14l-6 6M14 34l6-6M34 34l-6-6" stroke="#40916c" stroke-width="2.5" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" fill="var(--green-100)"/><path d="M16 24h16M24 16v16" stroke="var(--green-700)" stroke-width="3" stroke-linecap="round"/><path d="M14 14l6 6M34 14l-6 6M14 34l6-6M34 34l-6-6" stroke="var(--green-500)" stroke-width="2.5" stroke-linecap="round"/></svg>
           </div>
           <h3>Трейдинг</h3>
           <p>Закупка и реализация сельхозпродукции оптовыми партиями. Прямые контракты с производителями и проверенными покупателями по всему Казахстану.</p>
@@ -174,8 +165,11 @@
         </article>
 
         <article class="card" data-reveal>
+          <div class="card__media">
+            <img src="assets/images/climate-control.jpg" alt="Система контроля климата FSC.KZ" loading="lazy" width="960" height="1280">
+          </div>
           <div class="card__icon">
-            <svg viewBox="0 0 48 48" fill="none"><rect x="20" y="6" width="8" height="30" rx="4" fill="#d8f3dc"/><circle cx="24" cy="38" r="8" fill="#40916c"/><path d="M24 12v18" stroke="#1b6b3a" stroke-width="3" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 48 48" fill="none"><rect x="20" y="6" width="8" height="30" rx="4" fill="var(--green-100)"/><circle cx="24" cy="38" r="8" fill="var(--green-500)"/><path d="M24 12v18" stroke="var(--green-700)" stroke-width="3" stroke-linecap="round"/></svg>
           </div>
           <h3>Микроклимат</h3>
           <p>Круглосуточный мониторинг температуры, влажности и вентиляции. Автоматизированные системы поддерживают оптимальные условия для долгой сохранности урожая.</p>
