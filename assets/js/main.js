@@ -86,26 +86,60 @@
   });
 
   /* ===========================================================
-     Contact form → WhatsApp handoff
+     Contact form → validation + WhatsApp handoff
      =========================================================== */
   const form = document.getElementById("contactForm");
+  const consentField = form.querySelector('input[name="consent"]');
+
+  const clearFieldError = (field) => field.closest("label")?.classList.remove("is-invalid");
+
+  form.querySelectorAll("input[required], textarea[required]").forEach((field) => {
+    field.addEventListener("input", () => clearFieldError(field));
+  });
+  consentField.addEventListener("change", () => form.classList.remove("is-consent-invalid"));
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+
+    let firstInvalid = null;
+    form.querySelectorAll("input[required], textarea[required]").forEach((field) => {
+      const valid = field.value.trim().length > 0;
+      field.closest("label")?.classList.toggle("is-invalid", !valid);
+      if (!valid && !firstInvalid) firstInvalid = field;
+    });
+
+    const consentValid = consentField.checked;
+    form.classList.toggle("is-consent-invalid", !consentValid);
+    if (!consentValid && !firstInvalid) firstInvalid = consentField;
+
+    if (firstInvalid) {
+      firstInvalid.focus();
+      return;
+    }
+
     const data = new FormData(form);
     const name = (data.get("name") || "").toString().trim();
+    const company = (data.get("company") || "").toString().trim();
     const phone = (data.get("phone") || "").toString().trim();
+    const email = (data.get("email") || "").toString().trim();
     const service = (data.get("service") || "").toString();
     const message = (data.get("message") || "").toString().trim();
 
     const lines = [
-      "Здравствуйте! Хочу оставить заявку на сайте FSC.KZ.",
-      `Имя: ${name}`,
-      `Телефон: ${phone}`,
-      `Услуга: ${service}`,
+      "Здравствуйте! Хочу оставить заявку на сайте Fresh Storage Center.",
+      `Контактное лицо: ${name}`,
     ];
-    if (message) lines.push(`Сообщение: ${message}`);
+    if (company) lines.push(`Компания: ${company}`);
+    lines.push(`Телефон: ${phone}`);
+    if (email) lines.push(`Email: ${email}`);
+    lines.push(`Услуга: ${service}`);
+    if (message) lines.push(`Описание задачи: ${message}`);
 
     window.open(waLink(lines.join("\n")), "_blank", "noopener");
+
+    const successPanel = form.querySelector(".form__success");
+    successPanel.hidden = false;
+    form.classList.add("is-submitted");
   });
 
   /* ===========================================================
