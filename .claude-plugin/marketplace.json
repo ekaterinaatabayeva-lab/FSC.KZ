@@ -1,0 +1,11 @@
+{
+  "name": "fsc-tools",
+  "owner": { "name": "FSC.KZ" },
+  "plugins": [
+    {
+      "name": "limit-bar",
+      "source": "./.claude/plugins/limit-bar",
+      "description": "Плашка расхода лимитов подписки под строкой ввода"
+    }
+  ]
+}
