@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><title>Рабочий стол</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:2560px;height:1440px;overflow:hidden;font-family:"Inter","Segoe UI",Helvetica,Arial,sans-serif;color:#eef0ff;
+background:radial-gradient(1200px 800px at 15% 10%,#3b2f8f 0%,transparent 60%),radial-gradient(1100px 900px at 90% 90%,#0e6b7a 0%,transparent 60%),linear-gradient(135deg,#0f1226,#161a3a 50%,#0b1a2b);padding:70px 110px 80px;display:grid;grid-template-columns:1.15fr 1fr 1fr;grid-template-rows:auto minmax(0,1fr) minmax(0,1fr);gap:36px}
+.card{overflow:hidden;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:36px;padding:36px 44px;backdrop-filter:blur(12px)}
+h2{font-size:30px;letter-spacing:.18em;text-transform:uppercase;color:#9fb0ff;font-weight:600;margin-bottom:28px}
+.head{grid-column:1/4;display:flex;justify-content:space-between;align-items:flex-end;padding:0 10px 10px}
+.time{font-size:230px;font-weight:200;line-height:.9;letter-spacing:-.04em}
+.date{font-size:48px;color:#c8d0ff;margin-top:14px;font-weight:300}
+.quote{font-size:38px;max-width:700px;text-align:right;color:#aab4ee;font-weight:300;line-height:1.35}
+.row{display:flex;align-items:center;gap:22px;font-size:34px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.row:last-child{border:0}
+.box{width:34px;height:34px;border-radius:10px;border:2px solid #7f90ff;flex:none}
+.dot{width:16px;height:16px;border-radius:50%;flex:none}
+.t{margin-left:auto;color:#9fb0ff;font-size:32px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;text-align:center;font-size:32px}
+.cal b{color:#7f90ff;font-weight:500;font-size:26px;padding-bottom:10px}
+.cal span{padding:12px 0;border-radius:16px}
+.cal .today{background:linear-gradient(135deg,#7f6bff,#2fd0d9);color:#fff;font-weight:700}
+.cal .dim{color:#5d6694}
+.line{height:2px;background:rgba(255,255,255,.12);margin:48px 0}
+.goal{margin-bottom:30px;font-size:34px}.bar{height:14px;border-radius:7px;background:rgba(255,255,255,.1);margin-top:12px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#7f6bff,#2fd0d9)}
+.hide-time .time{display:none}.hide-time .date{font-size:64px;margin:0}
+</style></head><body>
+<div class="head">
+ <div><div class="time" id="time">09:41</div><div class="date" id="date"></div></div>
+ <div class="quote">Один шаг за раз.<br>Главное сегодня — сделать главное.</div>
+</div>
+
+<div class="card"><h2>Сегодня</h2>
+ <div class="row"><span class="box"></span>Главная задача дня<span class="t">фокус</span></div>
+ <div class="row"><span class="box"></span>Ответить на сообщения<span class="t">11:00</span></div>
+ <div class="row"><span class="box"></span>Созвон / встреча<span class="t">14:00</span></div>
+ <div class="row"><span class="box"></span>Закончить и подвести итог<span class="t">18:00</span></div>
+</div>
+
+<div class="card"><h2 id="mon">Месяц</h2><div class="cal" id="cal"></div></div>
+
+<div class="card"><h2>Напоминания</h2>
+ <div class="row"><span class="dot" style="background:#ff6b8a"></span>Срочное<span class="t">сегодня</span></div>
+ <div class="row"><span class="dot" style="background:#ffc857"></span>Оплатить / отправить<span class="t">завтра</span></div>
+ <div class="row"><span class="dot" style="background:#4ee0a0"></span>Не забыть на неделе<span class="t">пт</span></div>
+ <div class="row"><span class="dot" style="background:#7f90ff"></span>Позвонить<span class="t">—</span></div>
+</div>
+
+<div class="card"><h2>Цели месяца</h2>
+ <div class="goal">Цель 1<div class="bar"><i style="width:60%"></i></div></div>
+ <div class="goal">Цель 2<div class="bar"><i style="width:35%"></i></div></div>
+ <div class="goal">Цель 3<div class="bar"><i style="width:80%"></i></div></div>
+</div>
+
+<div class="card"><h2>Заметки</h2><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div>
+<div class="card"><h2>Привычки</h2>
+ <div class="row"><span class="box"></span>Вода</div><div class="row"><span class="box"></span>Движение</div><div class="row"><span class="box"></span>Чтение</div><div class="row"><span class="box"></span>Сон до 23:00</div>
+</div>
+<script>
+const q=new URLSearchParams(location.search);if(q.has('static'))document.body.classList.add('hide-time');
+const M=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const D=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+function tick(){const n=new Date();document.getElementById('time').textContent=n.toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'});
+document.getElementById('date').textContent=D[n.getDay()]+', '+n.getDate()+' '+M[n.getMonth()].toLowerCase().replace(/ь$/,'я').replace(/т$/,'та').replace(/й$/,'я');
+document.getElementById('mon').textContent=M[n.getMonth()]+' '+n.getFullYear();
+let h='';['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(d=>h+='<b>'+d+'</b>');
+const first=(new Date(n.getFullYear(),n.getMonth(),1).getDay()+6)%7,len=new Date(n.getFullYear(),n.getMonth()+1,0).getDate();
+for(let i=0;i<first;i++)h+='<span></span>';
+for(let d=1;d<=len;d++)h+='<span class="'+(d===n.getDate()?'today':'')+'">'+d+'</span>';
+document.getElementById('cal').innerHTML=h;}
+tick();setInterval(tick,1000);
+</script></body></html>
