@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>FSC Reel 2</title>
+<link rel="stylesheet" href="base.css">
+<style>
+.scene{background:radial-gradient(1100px 900px at 85% 10%,#1b2420 0%,#0b0d0c 70%)}
+.glow-o{position:absolute;width:1100px;height:1100px;border-radius:50%;background:radial-gradient(circle,rgba(255,102,52,.20),transparent 62%)}
+.glow-g{position:absolute;width:1200px;height:1200px;border-radius:50%;background:radial-gradient(circle,rgba(80,127,81,.30),transparent 62%)}
+.gridbg{position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/90px 90px,linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/90px 90px}
+.hl{top:290px}
+.card{padding:0}
+.big{font-weight:800;letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.cap2{font-size:28px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.crop{position:absolute;width:210px;height:250px;border-radius:32px;background:linear-gradient(160deg,rgba(32,38,35,.92),rgba(14,17,16,.94));border:1.5px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;font-size:30px;font-weight:700}
+.tag{position:absolute;left:90px;width:900px;height:170px;border-radius:40px;display:flex;align-items:center;gap:36px;padding:0 44px;font-size:64px;font-weight:800;letter-spacing:-.02em;text-transform:uppercase;
+  background:linear-gradient(160deg,rgba(32,38,35,.92),rgba(14,17,16,.94));border:1.5px solid var(--line);box-shadow:0 40px 80px rgba(0,0,0,.45)}
+.tag .ic{width:100px;height:100px;border-radius:28px;display:grid;place-items:center;background:rgba(255,102,52,.14);border:2px solid rgba(255,102,52,.55)}
+.node{position:absolute;display:flex;flex-direction:column;align-items:center;gap:18px;font-size:40px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.node i{width:36px;height:36px;border-radius:50%;display:block}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- ============ S1 HOOK ============ -->
+<section class="scene" id="s1">
+  <div class="gridbg"></div><div class="glow-o" style="left:380px;top:-300px"></div><div class="glow-g" style="left:-500px;top:900px"></div>
+  <div id="s1q" style="position:absolute;right:-40px;top:880px;font-size:900px;font-weight:800;color:rgba(255,255,255,.045);line-height:1">?</div>
+  <div class="hl" id="s1h">
+    <span class="mask"><span class="ln" style="font-size:150px">Урожай</span></span>
+    <span class="mask"><span class="ln" style="font-size:150px">собран.</span></span>
+    <span class="mask" style="margin-top:34px"><span class="ln o" style="font-size:100px">Где он доживёт</span></span>
+    <span class="mask"><span class="ln o" style="font-size:100px">до весны?</span></span>
+  </div>
+  <svg id="s1tl" width="1080" height="430" viewBox="0 -70 1080 430" style="position:absolute;left:0;top:1090px">
+    <path id="s1line" d="M150 170 C 330 60, 750 60, 930 170" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="6" stroke-dasharray="4 18" stroke-linecap="round"/>
+    <path id="s1prog" d="M150 170 C 330 60, 750 60, 930 170" fill="none" stroke="#FF6634" stroke-width="9" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+    <circle id="s1dot" r="20" fill="#FF6634"/>
+    <circle cx="150" cy="170" r="18" fill="#FF6634"/><circle cx="540" cy="92" r="18" fill="#fff"/><circle id="s1end" cx="930" cy="170" r="18" fill="#8AA98A"/>
+    <g font-family="Inter" font-weight="800" font-size="40" text-anchor="middle" fill="#fff" letter-spacing="2">
+      <text x="150" y="260" fill="#FF6634">ОСЕНЬ</text><text x="540" y="12">ЗИМА</text><text id="s1sp" x="930" y="260" fill="#8AA98A">ВЕСНА</text>
+    </g>
+  </svg>
+</section>
+
+<!-- ============ S2 POSITIVE ============ -->
+<section class="scene" id="s2">
+  <div class="gridbg"></div><div class="glow-g" style="left:-100px;top:700px"></div>
+  <div class="hl" id="s2h">
+    <span class="mask"><span class="ln" style="font-size:104px">Сохраните</span></span>
+    <span class="mask"><span class="ln o" style="font-size:104px">вес, качество</span></span>
+    <span class="mask"><span class="ln" style="font-size:104px">и цену урожая</span></span>
+  </div>
+  <div id="s2row" style="position:absolute;left:0;right:0;top:960px;height:600px"></div>
+</section>
+
+<!-- ============ S3 SOLUTION ============ -->
+<section class="scene" id="s3">
+  <div class="gridbg"></div><div class="glow-o" style="left:-300px;top:500px"></div>
+  <div class="hl" id="s3h">
+    <span class="mask"><span class="ln" style="font-size:108px">Холодильные</span></span>
+    <span class="mask"><span class="ln o" style="font-size:108px">камеры</span></span>
+    <span class="sub" style="font-size:46px">FSC · в аренду под Алматы, у БАКАД</span>
+  </div>
+  <div class="card" id="s3map" style="left:70px;top:790px;width:940px;height:560px;overflow:hidden">
+    <svg width="940" height="560" viewBox="0 0 940 560">
+      <defs><pattern id="mg" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" fill="none" stroke="rgba(255,255,255,.05)"/></pattern></defs>
+      <rect width="940" height="560" fill="url(#mg)"/>
+      <ellipse cx="400" cy="250" rx="290" ry="200" fill="rgba(138,169,138,.10)"/>
+      <ellipse id="s3ring" cx="400" cy="250" rx="290" ry="200" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="14" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+      <g stroke="rgba(255,255,255,.18)" stroke-width="6" fill="none"><path d="M400 50V450M110 250H690M210 110L590 390M590 110L210 390"/></g>
+      <text x="400" y="262" text-anchor="middle" font-family="Inter" font-weight="800" font-size="44" fill="rgba(255,255,255,.55)" letter-spacing="4">АЛМАТЫ</text>
+      <text id="s3lab" x="150" y="60" font-family="Inter" font-weight="800" font-size="34" fill="#fff" letter-spacing="3">БАКАД</text>
+      <path id="s3route" d="M760 430 C 700 400, 650 330, 592 292" fill="none" stroke="#FF6634" stroke-width="8" stroke-dasharray="3 16" stroke-linecap="round"/>
+      <circle id="s3p1" cx="760" cy="430" r="46" fill="rgba(255,102,52,.28)"/><circle id="s3p2" cx="760" cy="430" r="46" fill="rgba(255,102,52,.28)"/>
+      <circle cx="760" cy="430" r="22" fill="#FF6634" stroke="#fff" stroke-width="6"/>
+      <text x="760" y="510" text-anchor="middle" font-family="Inter" font-weight="800" font-size="40" fill="#FF6634">FSC</text>
+    </svg>
+    <div class="chip" id="s3chip" style="right:34px;top:34px;font-size:32px"><b>20 мин</b> до БАКАД</div>
+  </div>
+  <div id="s3crops"></div>
+</section>
+
+<!-- ============ S4 NUMBERS ============ -->
+<section class="scene" id="s4">
+  <div class="gridbg"></div><div class="glow-o" style="left:500px;top:300px"></div><div class="glow-g" style="left:-400px;top:1100px"></div>
+  <div class="hl" id="s4h" style="top:270px">
+    <span class="mask"><span class="ln" style="font-size:116px">Условия</span></span>
+    <span class="mask"><span class="ln o" style="font-size:116px">в цифрах</span></span>
+  </div>
+  <div class="card c4" id="c4a" style="left:50px;top:640px;width:480px;height:430px">
+    <svg width="480" height="440" viewBox="0 0 480 440" style="position:absolute;inset:0">
+      <rect x="86" y="46" width="44" height="230" rx="22" fill="rgba(255,255,255,.1)"/>
+      <circle cx="108" cy="290" r="40" fill="rgba(255,255,255,.1)"/>
+      <rect id="c4fill" x="94" y="276" width="28" height="0" rx="14" fill="#FF6634"/>
+      <circle id="c4bulb" cx="108" cy="290" r="30" fill="#FF6634"/>
+      <g font-family="Inter" font-weight="700" font-size="26" fill="rgba(255,255,255,.65)"><text x="150" y="276">0</text><text x="150" y="70">+20</text></g>
+    </svg>
+    <div style="position:absolute;left:210px;top:60px;width:250px"><div class="big" style="font-size:62px;color:var(--orange);white-space:nowrap"><span id="c4t">0</span><span style="font-size:40px;color:#fff"> °C</span></div></div>
+    <div class="cap2" style="position:absolute;left:36px;bottom:34px;font-size:30px;line-height:1.2">температура<br><span style="color:#fff">режим под культуру</span></div>
+  </div>
+  <div class="card c4" id="c4b" style="left:550px;top:640px;width:480px;height:430px">
+    <svg width="480" height="440" viewBox="0 0 480 440" style="position:absolute;inset:0">
+      <path d="M90 260 A 150 150 0 0 1 390 260" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="26" stroke-linecap="round"/>
+      <path id="c4arc" d="M90 260 A 150 150 0 0 1 390 260" fill="none" stroke="#8AA98A" stroke-width="26" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+      <path d="M240 118c-18 28-34 44-34 64a34 34 0 0 0 68 0c0-20-16-36-34-64Z" fill="#8AA98A"/>
+    </svg>
+    <div class="big" style="position:absolute;left:0;right:0;top:215px;text-align:center;font-size:84px"><span style="font-size:42px;color:var(--muted)">до </span><span id="c4h" style="color:var(--lg)">0</span><span style="font-size:48px">%</span></div>
+    <div class="cap2" style="position:absolute;left:36px;bottom:34px;font-size:30px">влажность</div>
+  </div>
+  <div class="card c4" id="c4c" style="left:50px;top:1090px;width:480px;height:430px">
+    <div id="c4cells" style="position:absolute;left:36px;top:40px;width:408px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px"></div>
+    <div class="big" style="position:absolute;left:36px;top:200px;font-size:80px;color:var(--orange)"><span style="font-size:40px;color:var(--muted)">до </span><span id="c4cap">0</span><span style="font-size:42px;color:#fff"> т</span></div>
+    <div class="cap2" style="position:absolute;left:36px;bottom:34px;font-size:30px;line-height:1.2">вместимость<br><span style="color:#fff">8 камер</span></div>
+  </div>
+  <div class="card c4" id="c4d" style="left:550px;top:1090px;width:480px;height:430px">
+    <div id="c4stack" style="position:absolute;left:36px;top:50px;width:408px;height:140px"></div>
+    <div class="big" style="position:absolute;left:36px;top:200px;font-size:80px;color:var(--orange)"><span style="font-size:40px;color:var(--muted)">от </span><span id="c4lot">0</span><span style="font-size:42px;color:#fff"> т</span></div>
+    <div class="cap2" style="position:absolute;left:36px;bottom:34px;font-size:30px;line-height:1.2">минимальная<br><span style="color:#fff">партия</span></div>
+  </div>
+  <div id="c4chips" style="position:absolute;left:50px;right:50px;top:1540px;display:flex;flex-wrap:wrap;gap:12px">
+    <span class="chip" style="position:relative;font-size:26px;padding:14px 22px"><b>125 т</b> погрузка за смену</span>
+    <span class="chip" style="position:relative;font-size:26px;padding:14px 22px">свои <b>автовесы</b></span>
+    <span class="chip g" style="position:relative;font-size:26px;padding:14px 22px">видеонаблюдение <b>24/7</b></span>
+  </div>
+</section>
+
+<!-- ============ S5 WHO ============ -->
+<section class="scene" id="s5">
+  <div class="gridbg"></div><div class="glow-o" style="left:-400px;top:600px"></div><div class="glow-g" style="left:400px;top:1000px"></div>
+  <div class="hl" id="s5h">
+    <span class="mask"><span class="ln" style="font-size:150px">Для кого</span></span>
+  </div>
+  <div id="s5tags"></div>
+</section>
+
+<!-- ============ S6 CTA ============ -->
+<section class="scene" id="s6">
+  <div class="gridbg"></div><div class="glow-o" style="left:-300px;top:-200px"></div><div class="glow-g" style="left:200px;top:900px"></div>
+  <div id="s6dust"></div>
+  <div id="s6cam" style="position:absolute;inset:0;transform-origin:50% 45%">
+    <div id="s6logo" style="position:absolute;left:0;right:0;top:250px;display:flex;justify-content:center;align-items:center;gap:36px">
+      <svg width="260" height="217" viewBox="0 0 300 250" overflow="visible">
+        <path id="s6chev" d="M22 112 L150 30 L282 106" fill="none" stroke="#FF6634" stroke-width="34" stroke-linejoin="miter" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <g fill="#fff" id="s6circles"><circle cx="60" cy="160" r="34"/><circle cx="126" cy="160" r="34"/><circle cx="60" cy="220" r="34"/><circle cx="126" cy="220" r="34"/><circle cx="192" cy="220" r="34"/><circle cx="258" cy="220" r="34"/></g>
+      </svg>
+      <div style="font-size:58px;font-weight:800;line-height:.98;letter-spacing:.01em">
+        <div class="mask"><div class="ln">FRESH</div></div><div class="mask"><div class="ln">STORAGE</div></div><div class="mask"><div class="ln">CENTER</div></div>
+      </div>
+    </div>
+    <div id="s6t" style="position:absolute;left:90px;right:90px;top:590px;font-size:84px;font-weight:800;line-height:.98;letter-spacing:-.025em;text-transform:uppercase">
+      <div class="mask"><div class="ln">Забронируйте</div></div><div class="mask"><div class="ln">место <span style="color:var(--orange)">в конце</span></div></div><div class="mask"><div class="ln" style="color:var(--orange)">сезона</div></div>
+    </div>
+    <div id="s6price" style="position:absolute;left:0;right:0;top:910px;text-align:center">
+      <div class="big" style="font-size:230px;color:var(--orange);line-height:.95">от 3 ₸</div>
+      <div style="font-size:52px;font-weight:700">за кг в месяц</div>
+    </div>
+    <div class="chip g" id="s6lot" style="left:50%;top:1250px;font-size:36px;transform:translateX(-50%)">партия от <b>100 т</b></div>
+    <div id="s6cta" style="position:absolute;left:0;right:0;top:1345px;text-align:center">
+      <div class="big" style="font-size:118px;color:var(--orange);letter-spacing:-.02em">fsc.kz</div>
+      <div style="font-size:60px;font-weight:800;margin-top:8px">+7 702 420 65 50</div>
+      <div style="font-size:34px;font-weight:600;color:rgba(255,255,255,.75);margin-top:10px">Звоните или пишите в WhatsApp</div>
+    </div>
+  </div>
+</section>
+
+<div class="corner c-tl"></div><div class="corner c-tr"></div><div class="corner c-bl"></div><div class="corner c-br"></div>
+<div class="eyebrow" id="eyebrow"><div class="brand"><span class="dot"></span>FSC</div><span class="num" id="ebNum">01 / 06</span><span class="topic" id="ebTopic">ВОПРОС</span></div>
+<div id="progress"><i id="progI"></i></div>
+<div id="flash"></div><div id="vignette"></div>
+<canvas id="grain" width="540" height="960"></canvas>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const P = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const E = {
+  out3: p => 1 - Math.pow(1 - p, 3), out5: p => 1 - Math.pow(1 - p, 5),
+  expo: p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p),
+  inOut: p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2,
+  back: p => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); },
+  in3: p => p * p * p,
+};
+let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const fmt = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
+const SCENES = [
+  { id: 's1', s: 0,    e: 2.5,  topic: 'ВОПРОС' },
+  { id: 's2', s: 2.5,  e: 5,    topic: 'РЕЗУЛЬТАТ' },
+  { id: 's3', s: 5,    e: 8,    topic: 'РЕШЕНИЕ' },
+  { id: 's4', s: 8,    e: 12.5, topic: 'ЦИФРЫ' },
+  { id: 's5', s: 12.5, e: 15,   topic: 'ДЛЯ КОГО' },
+  { id: 's6', s: 15,   e: 19.5, topic: 'БРОНЬ' },
+];
+const DUR = 19.5; window.DURATION = DUR;
+
+// ---------------- icons ----------------
+const IC = {
+  scale: '<svg width="130" height="130" viewBox="0 0 24 24" fill="none" stroke="#8AA98A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M5 7h14M5 7l-3 7a3 3 0 0 0 6 0L5 7ZM19 7l-3 7a3 3 0 0 0 6 0l-3-7Z"/></svg>',
+  shield: '<svg width="130" height="130" viewBox="0 0 24 24" fill="none" stroke="#8AA98A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3Z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>',
+  price: '<svg width="130" height="130" viewBox="0 0 24 24" fill="none" stroke="#8AA98A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l9.5 9.5a2 2 0 0 1 0 2.8l-4.7 4.7a2 2 0 0 1-2.8 0L3 12Z"/><circle cx="7.5" cy="8.5" r="1.3" fill="#8AA98A"/><path d="M12 11l3 3"/></svg>',
+  potato: '<svg width="96" height="96" viewBox="0 0 48 48"><ellipse cx="24" cy="26" rx="18" ry="13" transform="rotate(-18 24 26)" fill="#d9b57a"/><g fill="#9c7442"><circle cx="17" cy="25" r="1.8"/><circle cx="26" cy="22" r="1.6"/><circle cx="30" cy="29" r="1.8"/><circle cx="21" cy="31" r="1.5"/></g></svg>',
+  onion: '<svg width="96" height="96" viewBox="0 0 48 48"><path d="M24 5c1 5 1 7 0 10M24 5c-3 3-4 6-4 10" stroke="#8AA98A" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M24 12c9 5 15 12 15 20 0 6-6 10-15 10S9 38 9 32c0-8 6-15 15-20Z" fill="#e0a339"/><path d="M24 14c-4 7-5 17 0 26M24 14c4 7 5 17 0 26" stroke="#b97a1f" stroke-width="2" fill="none"/></svg>',
+  carrot: '<svg width="96" height="96" viewBox="0 0 48 48"><path d="M30 14c6 6 4 12-2 20L10 44 14 26c8-4 14-8 16-12Z" fill="#FF6634"/><g stroke="#cc4a1c" stroke-width="2" stroke-linecap="round"><path d="M22 24l5 3M18 32l4 2M26 18l4 2"/></g><path d="M30 14c1-6 4-9 9-10M30 14c-1-5 0-9 4-12M30 14c3-3 8-4 12-2" stroke="#6ea46f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>',
+  apple: '<svg width="96" height="96" viewBox="0 0 48 48"><path d="M24 14c-5-5-16-3-16 9 0 10 7 20 12 20 2 0 3-1 4-1s2 1 4 1c5 0 12-10 12-20 0-12-11-14-16-9Z" fill="#e3463b"/><path d="M24 14c0-5 2-8 6-10" stroke="#6b4a2a" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M27 9c4-3 8-2 9 1-3 3-7 3-9-1Z" fill="#6ea46f"/></svg>',
+  wheat: '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF6634" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8M12 8c-3 0-4-2-4-4 3 0 4 2 4 4ZM12 8c3 0 4-2 4-4-3 0-4 2-4 4ZM12 14c-3 0-4-2-4-4 3 0 4 2 4 4ZM12 14c3 0 4-2 4-4-3 0-4 2-4 4ZM12 20c-3 0-4-2-4-4 3 0 4 2 4 4ZM12 20c3 0 4-2 4-4-3 0-4 2-4 4Z"/></svg>',
+  truck: '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF6634" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h12v10H2zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="2"/><circle cx="17" cy="17.5" r="2"/></svg>',
+  store: '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF6634" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M3 9c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3M5 12v8h14v-8M10 20v-5h4v5"/></svg>',
+  fork: '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF6634" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a2 2 0 0 0 2 2v9M10 3v7a2 2 0 0 1-2 2M6 3v6M10 3v6M17 21V3c-2 1-3 4-3 7s1 4 3 4"/></svg>',
+};
+
+// ---------------- builders ----------------
+const s2items = [['scale', 'вес'], ['shield', 'качество'], ['price', 'цена']];
+s2items.forEach(([ic, lb], i) => {
+  const d = document.createElement('div'); d.id = 's2i' + i;
+  Object.assign(d.style, { position: 'absolute', left: (70 + i * 320) + 'px', top: '0', width: '290px', height: '470px' });
+  d.innerHTML = `<div class="card" style="position:absolute;left:0;top:0;width:290px;height:340px;display:grid;place-items:center;border-color:rgba(138,169,138,.5)">${IC[ic]}</div>
+    <div style="position:absolute;left:0;right:0;top:372px;text-align:center;font-size:44px;font-weight:800;text-transform:uppercase">${lb}</div>
+    <div id="s2ok${i}" style="position:absolute;left:215px;top:-24px;width:84px;height:84px;border-radius:50%;background:#507F51;display:grid;place-items:center;box-shadow:0 0 30px rgba(138,169,138,.6)">
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>`;
+  $('s2row').appendChild(d);
+});
+const cropsList = [['potato', 'картофель'], ['onion', 'лук'], ['carrot', 'морковь'], ['apple', 'яблоки']];
+cropsList.forEach(([ic, lb], i) => {
+  const d = document.createElement('div'); d.className = 'crop'; d.id = 's3c' + i;
+  d.style.left = (50 + i * 240) + 'px'; d.style.top = '1400px'; d.style.width = '220px';
+  d.innerHTML = IC[ic] + `<span>${lb}</span>`;
+  $('s3crops').appendChild(d);
+});
+const tagList = [['wheat', 'фермеры'], ['truck', 'оптовики'], ['store', 'сети'], ['fork', 'HoReCa']];
+tagList.forEach(([ic, lb], i) => {
+  const d = document.createElement('div'); d.className = 'tag'; d.id = 's5t' + i; d.style.top = (600 + i * 205) + 'px';
+  d.innerHTML = `<div class="ic">${IC[ic]}</div><span>${lb}</span>`;
+  $('s5tags').appendChild(d);
+});
+for (let i = 0; i < 8; i++) {
+  const c = document.createElement('div'); c.id = 'cell' + i;
+  Object.assign(c.style, { height: '70px', borderRadius: '14px', background: 'rgba(255,255,255,.08)', border: '1.5px solid rgba(255,255,255,.12)' });
+  $('c4cells').appendChild(c);
+}
+for (let i = 0; i < 6; i++) {
+  const b = document.createElement('div'); b.id = 'blk' + i;
+  const col = i % 3, row = Math.floor(i / 3);
+  Object.assign(b.style, { position: 'absolute', left: (col * 134) + 'px', top: (row * 70) + 'px', width: '126px', height: '62px', borderRadius: '14px', background: 'linear-gradient(135deg,#FF6634,#cc4a1c)', border: '1.5px solid rgba(255,255,255,.25)' });
+  $('c4stack').appendChild(b);
+}
+const dust = [];
+for (let i = 0; i < 60; i++) {
+  const d = document.createElement('div'); d.className = 'dust';
+  const r = 2 + rnd() * 5; d.style.width = d.style.height = r + 'px'; $('s6dust').appendChild(d);
+  dust.push({ el: d, x: rnd() * 1080, y: rnd() * 1920, vx: (rnd() - .5) * 30, vy: -10 - rnd() * 30, o: .15 + rnd() * .5, ph: rnd() * 6 });
+}
+const gctx = $('grain').getContext('2d'); const grainFrames = [];
+for (let f = 0; f < 4; f++) { const img = gctx.createImageData(540, 960); for (let i = 0; i < img.data.length; i += 4) { const v = rnd() * 255; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 255; } grainFrames.push(img); }
+
+function headline(id, lt, step = .167) {
+  const lines = document.querySelectorAll(`#${id} .ln`);
+  lines.forEach((l, i) => { const p = E.expo(P(lt, .08 + i * step, .6 + i * step)); l.style.transform = `translateY(${(1 - p) * 110}%)`; });
+  const sub = document.querySelector(`#${id} .sub`);
+  if (sub) { const p = E.out3(P(lt, .5 + lines.length * .12, 1.0 + lines.length * .12)); sub.style.opacity = p; sub.style.transform = `translateY(${(1 - p) * 30}px)`; }
+}
+const pop = (el, p, from = .7) => { el.style.opacity = clamp(p * 1.4); el.style.transform = `translateY(${(1 - p) * 70}px) scale(${lerp(from, 1, p)})`; };
+
+const U = {
+  s1(t) {
+    // headline: first two lines, then the question (hard stagger)
+    const lines = document.querySelectorAll('#s1h .ln');
+    lines.forEach((l, i) => { const a = i < 2 ? .08 + i * .12 : 1.0 + (i - 2) * .14; const p = E.expo(P(t, a, a + .5)); l.style.transform = `translateY(${(1 - p) * 110}%)`; });
+    const h = $('s1h'); const sp = P(t, 0, .35); h.style.transform = `scale(${lerp(.8, 1, E.back(sp))})`; h.style.opacity = clamp(sp * 3); h.style.transformOrigin = '0 50%';
+    $('s1q').style.transform = `translateY(${Math.sin(t * 1.6) * 20}px) rotate(${Math.sin(t) * 3}deg)`; $('s1q').style.opacity = E.out3(P(t, 1.0, 1.6));
+    const tl = E.out3(P(t, .5, .9)); $('s1tl').style.opacity = tl;
+    const mv = E.inOut(P(t, .9, 2.2)); $('s1prog').setAttribute('stroke-dashoffset', 1 - mv);
+    const path = $('s1line'); const L = path.getTotalLength(); const pt = path.getPointAtLength(L * mv);
+    $('s1dot').setAttribute('cx', pt.x); $('s1dot').setAttribute('cy', pt.y); $('s1dot').style.opacity = mv > 0 ? 1 : 0;
+    const q = P(t, 2.0, 2.5); $('s1end').setAttribute('r', 18 + Math.sin(q * Math.PI) * 18);
+  },
+  s2(t) {
+    headline('s2h', t);
+    s2items.forEach((_, i) => {
+      const p = E.back(P(t, .55 + i * .22, 1.0 + i * .22)); pop($('s2i' + i), p, .6);
+      const ok = E.back(P(t, 1.25 + i * .25, 1.6 + i * .25)); const e = $('s2ok' + i); e.style.opacity = clamp(ok * 2); e.style.transform = `scale(${ok})`;
+    });
+  },
+  s3(t) {
+    headline('s3h', t);
+    const mp = E.out5(P(t, .15, .8)); $('s3map').style.opacity = clamp(mp * 1.5); $('s3map').style.transform = `translateY(${(1 - mp) * 240}px) scale(${lerp(.92, 1, mp)})`;
+    $('s3ring').setAttribute('stroke-dashoffset', 1 - E.inOut(P(t, .35, 1.3)));
+    $('s3lab').setAttribute('opacity', E.out3(P(t, 1.0, 1.3)));
+    const dr = $('s3route'); dr.setAttribute('opacity', E.out3(P(t, .9, 1.2))); dr.setAttribute('stroke-dashoffset', -t * 40);
+    ['s3p1', 's3p2'].forEach((id, k) => { const r = ((t * 1.1 + k * .5) % 1); $(id).setAttribute('r', 22 + r * 50); $(id).setAttribute('opacity', (1 - r) * .8); });
+    pop($('s3chip'), E.back(P(t, 1.3, 1.7)), .6); $('s3chip').style.transform += ' translateX(0)';
+    cropsList.forEach((_, i) => pop($('s3c' + i), E.back(P(t, 1.5 + i * .18, 1.9 + i * .18)), .6));
+  },
+  s4(t) {
+    headline('s4h', t);
+    ['c4a', 'c4b', 'c4c', 'c4d'].forEach((id, i) => pop($(id), E.back(P(t, .45 + i * .18, .9 + i * .18)), .8));
+    const f = E.out3(P(t, .7, 1.9)); $('c4fill').setAttribute('y', 290 - 230 * f); $('c4fill').setAttribute('height', 230 * f + 6);
+    const tv = Math.round(20 * f); $('c4t').textContent = '0…+' + tv;
+    $('c4arc').setAttribute('stroke-dashoffset', 1 - .9 * E.out3(P(t, .9, 2.1))); $('c4h').textContent = Math.round(90 * E.out3(P(t, .9, 2.1)));
+    const cp = E.out3(P(t, 1.1, 2.3)); $('c4cap').textContent = fmt(5000 * cp);
+    for (let i = 0; i < 8; i++) { const on = P(t, 1.1 + i * .12, 1.3 + i * .12) > .5; const c = $('cell' + i); c.style.background = on ? 'linear-gradient(135deg,#8AA98A,#507F51)' : 'rgba(255,255,255,.08)'; }
+    $('c4lot').textContent = fmt(100 * E.out3(P(t, 1.3, 2.3)));
+    for (let i = 0; i < 6; i++) { const p = E.back(P(t, 1.3 + i * .12, 1.6 + i * .12)); const b = $('blk' + i); b.style.opacity = clamp(p * 2); b.style.transform = `translateY(${(1 - p) * -60}px)`; }
+    const cp2 = E.out3(P(t, 2.6, 3.1)); $('c4chips').style.opacity = cp2; $('c4chips').style.transform = `translateY(${(1 - cp2) * 30}px)`;
+  },
+  s5(t) {
+    headline('s5h', t);
+    tagList.forEach((_, i) => {
+      const p = E.out5(P(t, .3 + i * .17, .75 + i * .17)); const e = $('s5t' + i);
+      e.style.opacity = clamp(p * 1.5); e.style.transform = `translateX(${(1 - p) * 1100}px) skewX(${(1 - p) * -14}deg)`;
+    });
+  },
+  s6(t) {
+    const cam = $('s6cam'); cam.style.transform = `scale(${1 + t * .012})`;
+    $('s6chev').setAttribute('stroke-dashoffset', 1 - E.inOut(P(t, .1, .7)));
+    document.querySelectorAll('#s6circles circle').forEach((c, i) => {
+      const p = E.back(P(t, .45 + i * .07, .75 + i * .07)); const x = c.getAttribute('cx'), y = c.getAttribute('cy');
+      c.setAttribute('transform', `translate(${x} ${y}) scale(${p}) translate(${-x} ${-y})`);
+    });
+    document.querySelectorAll('#s6logo .ln').forEach((l, i) => { const p = E.expo(P(t, .6 + i * .1, 1.1 + i * .1)); l.style.transform = `translateY(${(1 - p) * 110}%)`; });
+    document.querySelectorAll('#s6t .ln').forEach((l, i) => { const p = E.expo(P(t, .9 + i * .14, 1.4 + i * .14)); l.style.transform = `translateY(${(1 - p) * 110}%)`; });
+    const pr = E.out5(P(t, 1.5, 2.1)); const price = $('s6price'); price.style.opacity = pr; price.style.transform = `scale(${lerp(1.25, 1, pr)})`; price.style.filter = `blur(${(1 - pr) * 12}px)`;
+    const bp = E.back(P(t, 2.1, 2.5)); const b = $('s6lot'); b.style.opacity = clamp(bp); b.style.transform = `translateX(-50%) scale(${lerp(.6, 1, bp)})`;
+    const cta = E.out3(P(t, 2.5, 3.0)); $('s6cta').style.opacity = cta; $('s6cta').style.transform = `translateY(${(1 - cta) * 40}px)`;
+    dust.forEach(d => { const x = (d.x + d.vx * t + 1080) % 1080, y = ((d.y + d.vy * t) % 1920 + 1920) % 1920; d.el.style.transform = `translate(${x}px,${y}px)`; d.el.style.opacity = d.o * (.6 + .4 * Math.sin(t * 2 + d.ph)); });
+  },
+};
+
+let lastScene = null;
+window.seek = function (t) {
+  t = clamp(t, 0, DUR - 1e-6);
+  const sc = SCENES.find(s => t >= s.s && t < s.e) || SCENES[SCENES.length - 1];
+  if (lastScene !== sc.id) { SCENES.forEach(s => $(s.id).style.display = s.id === sc.id ? 'block' : 'none'); lastScene = sc.id; }
+  const lt = t - sc.s, dur = sc.e - sc.s;
+  U[sc.id](lt, dur);
+  const el = $(sc.id); let tx = 0, blur = 0, fl = 0;
+  const outP = P(lt, dur - .12, dur);
+  if (outP > 0 && sc.id !== 's6') { tx = -E.in3(outP) * 260; blur = outP * 22; }
+  const inP = P(lt, 0, .18);
+  if (sc.id !== 's1' && inP < 1) { tx = (1 - E.out3(inP)) * 300; blur = Math.max(blur, (1 - inP) * 24); fl = 1 - inP; }
+  if (sc.id === 's6') { tx = 0; blur = (1 - P(lt, 0, .3)) * 10; }
+  el.style.transform = `translateX(${tx}px)`; el.style.filter = blur > .2 ? `blur(${blur}px)` : 'none';
+  const flash = $('flash'); flash.style.opacity = fl * .5; flash.style.transform = `translateX(${(1 - fl) * 900 - 450}px)`;
+  const idx = SCENES.indexOf(sc);
+  $('ebNum').textContent = String(idx + 1).padStart(2, '0') + ' / 06'; $('ebTopic').textContent = sc.topic;
+  $('ebTopic').style.opacity = E.out3(P(lt, .05, .35));
+  $('progI').style.width = (t / DUR * 100) + '%';
+  const hide = sc.id === 's6' ? E.out3(P(lt, 0, .4)) : 0;
+  ['eyebrow', 'progress'].forEach(id => $(id).style.opacity = 1 - hide);
+  document.querySelectorAll('.corner').forEach(c => c.style.opacity = 1 - hide * .6);
+  gctx.putImageData(grainFrames[Math.floor(t * 30) % grainFrames.length], 0, 0);
+};
+window.ready = (async () => { await document.fonts.ready; window.seek(0); return true; })();
+</script>
+</body>
+</html>
