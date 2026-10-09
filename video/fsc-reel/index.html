@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>FSC Reel</title>
+<style>
+:root{
+  --ink:#0b0d0c; --ink2:#141917; --orange:#FF6634; --green:#507F51; --lg:#8AA98A;
+  --white:#ffffff; --muted:rgba(255,255,255,.62); --line:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--ink);
+  font-family:"Inter",sans-serif;color:var(--white);-webkit-font-smoothing:antialiased}
+#stage{position:absolute;inset:0;overflow:hidden;background:var(--ink)}
+.scene{position:absolute;inset:0;display:none;overflow:hidden;will-change:transform,filter}
+.bg{position:absolute;inset:-80px;background-size:cover;background-position:center}
+.shade{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(11,13,12,.92) 0%,rgba(11,13,12,.55) 30%,rgba(11,13,12,.62) 60%,rgba(11,13,12,.96) 100%)}
+.tint-o{position:absolute;inset:0;background:radial-gradient(900px 700px at 80% 15%,rgba(255,102,52,.22),transparent 70%)}
+.tint-g{position:absolute;inset:0;background:radial-gradient(900px 800px at 15% 85%,rgba(80,127,81,.30),transparent 70%)}
+
+/* ---------- typography ---------- */
+.hl{position:absolute;left:84px;right:84px;top:300px;font-weight:800;text-transform:uppercase;
+  letter-spacing:-.025em;line-height:.92;transform-origin:0 50%}
+.hl .ln{display:block;font-size:112px;will-change:transform,opacity}
+.hl .o{color:var(--orange)}
+.hl .g{color:var(--lg)}
+.hl .sub{display:block;margin-top:26px;font-size:44px;font-weight:500;text-transform:none;
+  letter-spacing:-.01em;line-height:1.15;color:rgba(255,255,255,.86)}
+.mask{display:block;overflow:hidden;padding-bottom:6px}
+
+/* ---------- chrome ---------- */
+.eyebrow{position:absolute;left:84px;top:178px;display:flex;align-items:center;gap:18px;
+  font-size:26px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;z-index:30}
+.eyebrow .brand{display:flex;align-items:center;gap:12px;padding:12px 20px;border-radius:999px;
+  background:rgba(255,255,255,.08);border:1.5px solid var(--line);backdrop-filter:blur(10px)}
+.eyebrow .dot{width:12px;height:12px;border-radius:50%;background:var(--orange);box-shadow:0 0 18px var(--orange)}
+.eyebrow .num{color:var(--muted)}
+.eyebrow .topic{color:var(--lg)}
+.corner{position:absolute;width:56px;height:56px;border-color:rgba(255,255,255,.55);border-style:solid;z-index:30}
+.c-tl{left:40px;top:120px;border-width:3px 0 0 3px}
+.c-tr{right:40px;top:120px;border-width:3px 3px 0 0}
+.c-bl{left:40px;bottom:120px;border-width:0 0 3px 3px}
+.c-br{right:40px;bottom:120px;border-width:0 3px 3px 0}
+#progress{position:absolute;left:84px;right:84px;bottom:150px;height:6px;border-radius:3px;
+  background:rgba(255,255,255,.12);z-index:30;overflow:hidden}
+#progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),#ff9a6e);border-radius:3px}
+#captions{position:absolute;left:84px;right:84px;bottom:206px;z-index:30;display:flex;justify-content:center}
+#captions .cap{max-width:900px;padding:22px 30px;border-radius:22px;background:rgba(10,12,11,.72);
+  border:1.5px solid var(--line);backdrop-filter:blur(14px);font-size:38px;font-weight:600;
+  line-height:1.25;text-align:center;letter-spacing:-.005em}
+#captions .w{opacity:.22;transition:none}
+#captions .w.on{opacity:1}
+#captions .w.hot{color:var(--orange)}
+#grain{position:absolute;inset:0;z-index:40;pointer-events:none;opacity:.075;mix-blend-mode:overlay}
+#flash{position:absolute;inset:0;z-index:35;pointer-events:none;opacity:0;
+  background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.9) 50%,transparent 70%)}
+#vignette{position:absolute;inset:0;z-index:34;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+
+/* ---------- generic UI ---------- */
+.chip{position:absolute;display:inline-flex;align-items:center;gap:14px;padding:18px 28px;border-radius:999px;
+  font-size:34px;font-weight:700;background:rgba(14,17,16,.82);border:1.5px solid var(--line);
+  backdrop-filter:blur(12px);white-space:nowrap}
+.chip b{color:var(--orange)}
+.chip.g b{color:var(--lg)}
+.card{position:absolute;border-radius:36px;background:linear-gradient(160deg,rgba(32,38,35,.92),rgba(14,17,16,.94));
+  border:1.5px solid rgba(255,255,255,.12);box-shadow:0 60px 120px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08)}
+.p3d{position:absolute;inset:0;perspective:1800px;perspective-origin:50% 45%}
+.box{position:absolute;transform-style:preserve-3d}
+.face{position:absolute;backface-visibility:hidden}
+
+/* ---------- S1 crates ---------- */
+.crate .face{background:
+  repeating-linear-gradient(180deg,#c48a4f 0 38px,#6b4422 38px 46px);
+  border:4px solid #5a3818;box-shadow:inset 0 0 40px rgba(0,0,0,.35)}
+.crate .face.top{background:#2a1a0d;border:6px solid #8c5d30;overflow:hidden}
+.crate .face.side{filter:brightness(.68)}
+.crate{transform-style:preserve-3d}
+.produce{position:absolute;border-radius:50%}
+.lbl{position:absolute;font-size:30px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);text-align:center;width:300px;margin-left:-150px}
+
+/* ---------- S2 wall ---------- */
+.steel{background:repeating-linear-gradient(90deg,#c9d0d4 0 34px,#9aa3a8 34px 40px,#dde3e6 40px 70px);
+  border:2px solid #7f888d}
+.steel.dark{filter:brightness(.7)}
+.foam{background:
+  radial-gradient(circle at 30% 30%,rgba(255,255,255,.35) 0 5px,transparent 6px) 0 0/26px 26px,
+  radial-gradient(circle at 70% 60%,rgba(120,80,0,.25) 0 6px,transparent 7px) 0 0/34px 34px,
+  linear-gradient(180deg,#f2cf6b,#e0ad3e);border:2px solid #b8862a}
+.foam.dark{filter:brightness(.72)}
+.callout{position:absolute;display:flex;align-items:center;gap:16px;font-size:32px;font-weight:700;white-space:nowrap}
+.callout .ln{height:2px;background:rgba(255,255,255,.7)}
+.callout .pt{width:16px;height:16px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 6px rgba(255,102,52,.25)}
+.temp{position:absolute;font-weight:800;letter-spacing:-.03em}
+.side-lbl{position:absolute;font-size:28px;font-weight:700;letter-spacing:.16em;color:var(--muted)}
+.heat{position:absolute;width:70px;height:70px}
+
+/* ---------- S3 panel ---------- */
+.tabs{display:flex;gap:14px;position:relative}
+.tab{position:relative;z-index:2;padding:20px 26px;border-radius:999px;font-size:31px;font-weight:700;color:rgba(255,255,255,.6);white-space:nowrap}
+.tab.on{color:#111}
+.pill{position:absolute;z-index:1;top:0;height:100%;border-radius:999px;background:var(--orange);box-shadow:0 10px 40px rgba(255,102,52,.45)}
+.metric{position:absolute;}
+.metric .k{font-size:26px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.metric .v{font-size:150px;font-weight:800;letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.metric .v small{font-size:60px;font-weight:700;color:var(--muted);margin-left:6px}
+.tap{position:absolute;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:50%;
+  background:rgba(255,255,255,.9);box-shadow:0 0 0 0 rgba(255,255,255,.4);z-index:5}
+.ring{position:absolute;border-radius:50%;border:4px solid rgba(255,255,255,.9);z-index:4}
+
+/* ---------- S5 phone ---------- */
+.phone{position:absolute;width:470px;height:960px;border-radius:72px;background:#0a0a0a;
+  border:3px solid #3a3f3c;box-shadow:0 80px 140px rgba(0,0,0,.7),inset 0 0 0 10px #151515}
+.screen{position:absolute;inset:16px;border-radius:58px;overflow:hidden;
+  background:linear-gradient(170deg,#1c2420 0%,#101412 70%)}
+.notch{position:absolute;left:50%;top:22px;width:150px;height:40px;margin-left:-75px;border-radius:20px;background:#000;z-index:3}
+
+/* ---------- S7 ---------- */
+.dust{position:absolute;border-radius:50%;background:#fff}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- ============ S1 ============ -->
+  <section class="scene" id="s1">
+    <div class="bg" style="background-image:url(bg/bags.jpg);filter:blur(6px) brightness(.75)"></div>
+    <div class="shade"></div><div class="tint-o"></div>
+    <div class="hl" id="s1h">
+      <span class="mask"><span class="ln">Урожай</span></span>
+      <span class="mask"><span class="ln o">пропадает,</span></span>
+      <span class="sub">если его неправильно хранить</span>
+    </div>
+    <div class="p3d" id="s1p"></div>
+    <div class="chip" id="s1chip" style="left:84px;top:1300px">
+      <svg width="38" height="38" viewBox="0 0 24 24"><path d="M12 3 2 21h20L12 3Z" fill="none" stroke="#FF6634" stroke-width="2.4" stroke-linejoin="round"/><path d="M12 10v5M12 18v.5" stroke="#FF6634" stroke-width="2.4" stroke-linecap="round"/></svg>
+      Обычный склад: потери <b id="s1loss">0%</b>
+    </div>
+  </section>
+
+  <!-- ============ S2 ============ -->
+  <section class="scene" id="s2">
+    <div class="bg" style="background-image:url(bg/bay.jpg)"></div>
+    <div class="shade" style="background:rgba(11,13,12,.86)"></div><div class="tint-g"></div>
+    <div class="hl" id="s2h">
+      <span class="mask"><span class="ln o">PIR-панели</span></span>
+      <span class="sub">Стены работают как термос</span>
+    </div>
+    <div class="side-lbl" id="s2out" style="left:84px;top:600px">УЛИЦА</div>
+    <div class="side-lbl" id="s2in" style="right:84px;top:600px;text-align:right">КАМЕРА</div>
+    <div class="temp" id="s2tout" style="left:84px;top:640px;font-size:92px;color:var(--orange)">+35°</div>
+    <div class="temp" id="s2tin" style="right:84px;top:640px;font-size:92px;color:var(--lg);text-align:right">+4°</div>
+    <div class="temp" id="s2hin" style="right:84px;top:745px;font-size:36px;color:rgba(255,255,255,.75);text-align:right">влажность 90%</div>
+    <div id="s2heat"></div>
+    <div class="p3d" id="s2p" style="perspective:2000px"></div>
+    <div id="s2calls" style="position:absolute;left:0;right:0;top:1430px;display:flex;justify-content:center;gap:16px;z-index:6"></div>
+  </section>
+
+  <!-- ============ S3 ============ -->
+  <section class="scene" id="s3">
+    <div class="bg" style="background-image:url(bg/panel.jpg);filter:blur(10px) brightness(.6)"></div>
+    <div class="shade" style="background:rgba(11,13,12,.72)"></div><div class="tint-o"></div>
+    <div class="hl" id="s3h">
+      <span class="mask"><span class="ln">Голландский</span></span>
+      <span class="mask"><span class="ln o">климат</span></span>
+      <span class="sub">Камера сама выставит режим</span>
+    </div>
+    <div class="p3d" style="perspective:2200px">
+      <div class="card" id="s3card" style="left:70px;top:760px;width:940px;height:640px;transform-style:preserve-3d">
+        <div style="position:absolute;left:44px;top:40px;right:44px;display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:26px;font-weight:700;letter-spacing:.14em;color:var(--muted)">КЛИМАТ-КОНТРОЛЬ · OMNIVENT</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:24px;font-weight:800">
+            <span style="display:inline-block;width:44px;height:30px;border-radius:5px;overflow:hidden;background:linear-gradient(#AE1C28 0 33.3%,#fff 33.3% 66.6%,#21468B 66.6%)"></span>NL
+          </div>
+        </div>
+        <div class="tabs" id="s3tabs" style="position:absolute;left:36px;top:108px">
+          <div class="pill" id="s3pill"></div>
+          <div class="tab">Лук</div><div class="tab">Морковь</div><div class="tab">Яблоки</div><div class="tab">Сухой склад</div>
+        </div>
+        <div class="metric" style="left:50px;top:240px"><div class="k">Температура</div><div class="v"><span id="s3t">+0</span><small>°C</small></div></div>
+        <div class="metric" style="left:520px;top:240px"><div class="k">Влажность</div><div class="v"><span id="s3h2">70</span><small>%</small></div></div>
+        <div style="position:absolute;left:50px;right:50px;top:470px;height:2px;background:var(--line)"></div>
+        <div style="position:absolute;left:50px;top:505px;font-size:30px;font-weight:600;color:var(--muted)">Режим:</div>
+        <div id="s3mode" style="position:absolute;left:170px;top:500px;font-size:36px;font-weight:800">Лук · хранение</div>
+        <div style="position:absolute;right:50px;top:500px;display:flex;align-items:center;gap:12px;font-size:28px;font-weight:700;color:var(--lg)">
+          <span id="s3live" style="width:16px;height:16px;border-radius:50%;background:#7dd87f;box-shadow:0 0 16px #7dd87f"></span>АВТО</div>
+        <div style="position:absolute;left:50px;right:50px;top:575px;height:10px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden">
+          <i id="s3bar" style="display:block;height:100%;width:40%;background:linear-gradient(90deg,var(--green),var(--lg))"></i></div>
+      </div>
+      <div class="tap" id="s3tap"></div><div class="ring" id="s3ring"></div>
+    </div>
+  </section>
+
+  <!-- ============ S4 ============ -->
+  <section class="scene" id="s4">
+    <div class="bg" style="background-image:url(bg/compressors.jpg)"></div>
+    <div class="shade" style="background:rgba(11,13,12,.82)"></div><div class="tint-g"></div>
+    <div class="hl" id="s4h">
+      <span class="mask"><span class="ln">Контроль</span></span>
+      <span class="mask"><span class="ln g">по точке росы</span></span>
+    </div>
+    <div class="card" id="s4card" style="left:70px;top:700px;width:940px;height:640px">
+      <svg id="s4svg" width="940" height="640" viewBox="0 0 940 640" style="position:absolute;inset:0">
+        <g stroke="rgba(255,255,255,.08)" stroke-width="2">
+          <line x1="70" y1="120" x2="880" y2="120"/><line x1="70" y1="240" x2="880" y2="240"/>
+          <line x1="70" y1="360" x2="880" y2="360"/><line x1="70" y1="480" x2="880" y2="480"/>
+        </g>
+        <g fill="rgba(255,255,255,.45)" font-size="22" font-weight="600" font-family="Inter">
+          <text x="20" y="128">+30</text><text x="20" y="248">+20</text><text x="20" y="368">+10</text><text x="34" y="488">0</text>
+          <text x="70" y="585">00:00</text><text x="440" y="585">12:00</text><text x="810" y="585">24:00</text>
+        </g>
+        <path id="s4out" fill="none" stroke="#FF6634" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <path id="s4in" fill="none" stroke="#8AA98A" stroke-width="9" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <circle id="s4dotO" r="12" fill="#FF6634"/><circle id="s4dotI" r="13" fill="#8AA98A"/>
+      </svg>
+      <div style="position:absolute;left:70px;top:36px;display:flex;gap:34px;font-size:28px;font-weight:700">
+        <span style="display:flex;align-items:center;gap:12px"><i style="width:30px;height:7px;border-radius:4px;background:var(--orange)"></i>улица</span>
+        <span style="display:flex;align-items:center;gap:12px"><i style="width:30px;height:9px;border-radius:4px;background:var(--lg)"></i>камера</span>
+      </div>
+      <div id="s4tag" class="temp" style="font-size:44px;color:var(--lg)">+4°C</div>
+    </div>
+    <div id="s4drop" style="position:absolute;left:800px;top:600px;width:160px;height:160px">
+      <div class="ring" id="s4r1" style="left:0;top:0;width:160px;height:160px;border-color:rgba(138,169,138,.8)"></div>
+      <div class="ring" id="s4r2" style="left:0;top:0;width:160px;height:160px;border-color:rgba(138,169,138,.8)"></div>
+      <svg width="160" height="160" viewBox="0 0 24 24" style="position:absolute;inset:0;padding:30px">
+        <path d="M12 2.5C9 7 5.5 10.6 5.5 14.5a6.5 6.5 0 0 0 13 0C18.5 10.6 15 7 12 2.5Z" fill="#8AA98A"/>
+        <path d="M9 15.2a3 3 0 0 0 3 3" stroke="#fff" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="chip g" id="s4c1" style="left:84px;top:1390px"><b>✓</b> не усыхает</div>
+    <div class="chip g" id="s4c2" style="left:520px;top:1390px"><b>✓</b> не намокает</div>
+  </section>
+
+  <!-- ============ S5 ============ -->
+  <section class="scene" id="s5">
+    <div class="bg" style="background-image:url(bg/chamber.jpg)"></div>
+    <div class="shade" style="background:rgba(11,13,12,.78)"></div><div class="tint-o"></div>
+    <div class="hl" id="s5h">
+      <span class="mask"><span class="ln">Камера</span></span>
+      <span class="mask"><span class="ln o">в телефоне</span></span>
+      <span class="sub">Смотрите из любой точки</span>
+    </div>
+    <div class="p3d" style="perspective:1900px">
+      <div class="phone" id="s5phone" style="left:80px;top:640px">
+        <div class="screen">
+          <div class="notch"></div>
+          <div style="position:absolute;left:36px;right:36px;top:86px;display:flex;justify-content:space-between;font-size:22px;font-weight:700;color:var(--muted)">
+            <span>FSC · Камера №3</span><span style="display:flex;align-items:center;gap:8px;color:#7dd87f"><i id="s5live" style="width:12px;height:12px;border-radius:50%;background:#7dd87f"></i>онлайн</span></div>
+          <div style="position:absolute;left:36px;top:150px;font-size:22px;font-weight:600;letter-spacing:.12em;color:var(--muted)">ТЕМПЕРАТУРА</div>
+          <div style="position:absolute;left:30px;top:178px;font-size:150px;font-weight:800;letter-spacing:-.06em;line-height:1"><span id="s5t">+3.8</span><span style="font-size:56px;color:var(--muted)">°</span></div>
+          <div style="position:absolute;left:36px;right:36px;top:360px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div style="padding:20px;border-radius:24px;background:rgba(255,255,255,.06)"><div style="font-size:19px;color:var(--muted);font-weight:600">Влажность</div><div style="font-size:52px;font-weight:800" id="s5h2">88%</div></div>
+            <div style="padding:20px;border-radius:24px;background:rgba(255,255,255,.06)"><div style="font-size:19px;color:var(--muted);font-weight:600">Статус</div><div style="font-size:44px;font-weight:800;color:var(--lg);margin-top:6px">Норма</div></div>
+          </div>
+          <svg width="398" height="170" viewBox="0 0 398 170" style="position:absolute;left:36px;top:560px">
+            <path id="s5spark" fill="none" stroke="#FF6634" stroke-width="5" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+          </svg>
+          <div style="position:absolute;left:36px;top:740px;font-size:19px;color:var(--muted);font-weight:600">последние 24 часа</div>
+          <div id="s5note" style="position:absolute;left:20px;right:20px;top:20px;padding:20px 22px;border-radius:28px;background:rgba(245,245,245,.96);color:#111;display:flex;gap:16px;align-items:center;z-index:4">
+            <div style="width:58px;height:58px;border-radius:16px;background:var(--green);display:grid;place-items:center;color:#fff;font-size:30px;font-weight:800">✓</div>
+            <div><div style="font-size:19px;font-weight:700;color:#666">Агроном-технолог · сейчас</div><div style="font-size:24px;font-weight:800">Партия проверена, всё в норме</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card" id="s5card" style="left:590px;top:1030px;width:420px;padding:36px">
+      <div style="width:84px;height:84px;border-radius:24px;background:rgba(80,127,81,.25);border:2px solid var(--lg);display:grid;place-items:center;margin-bottom:24px">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8AA98A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div>
+      <div style="font-size:24px;font-weight:700;letter-spacing:.12em;color:var(--muted)">АГРОНОМ-ТЕХНОЛОГ</div>
+      <div style="font-size:52px;font-weight:800;line-height:1.05;margin-top:10px">уже<br><span style="color:var(--orange)">в цене</span></div>
+    </div>
+  </section>
+
+  <!-- ============ S6 ============ -->
+  <section class="scene" id="s6">
+    <div class="bg" style="background-image:url(bg/drone.jpg)"></div>
+    <div class="shade" style="background:linear-gradient(180deg,rgba(11,13,12,.92) 0%,rgba(11,13,12,.55) 35%,rgba(11,13,12,.55) 55%,rgba(11,13,12,.95) 100%)"></div>
+    <div class="hl" id="s6h">
+      <span class="mask"><span class="ln">Погрузка</span></span>
+      <span class="mask"><span class="ln o">под крышей</span></span>
+    </div>
+    <div class="p3d" style="perspective:1600px;perspective-origin:50% 30%">
+      <div id="s6map" style="position:absolute;left:90px;top:700px;width:900px;height:640px;transform-style:preserve-3d;transform:rotateX(52deg) rotateZ(-14deg)">
+        <div style="position:absolute;inset:0;border-radius:28px;background:rgba(18,22,20,.86);border:2px solid rgba(255,255,255,.18)"></div>
+        <!-- building -->
+        <div style="position:absolute;left:60px;top:50px;width:780px;height:230px;border-radius:12px;background:linear-gradient(180deg,#e9ecec,#b9c0c1);box-shadow:0 0 0 3px rgba(255,255,255,.3)"></div>
+        <div style="position:absolute;left:84px;top:96px;font-size:34px;font-weight:800;color:#1b1f1d;letter-spacing:.06em">FSC · 8 КАМЕР</div>
+        <!-- canopy -->
+        <div style="position:absolute;left:240px;top:280px;width:420px;height:150px;border:3px dashed var(--orange);border-radius:6px;
+          background:repeating-linear-gradient(45deg,rgba(255,102,52,.18) 0 14px,transparent 14px 28px)"></div>
+        <div style="position:absolute;left:250px;top:440px;font-size:24px;font-weight:800;color:var(--orange);letter-spacing:.1em">НАВЕС · ЗОНА ПОГРУЗКИ</div>
+        <!-- scale -->
+        <div id="s6scale" style="position:absolute;left:690px;top:330px;width:150px;height:240px;border-radius:8px;background:rgba(138,169,138,.18);border:3px solid var(--lg)"></div>
+        <!-- trucks -->
+        <div class="truck" id="s6t1" style="position:absolute;left:300px;top:0;width:110px;height:250px"></div>
+        <div class="truck" id="s6t2" style="position:absolute;left:490px;top:0;width:110px;height:250px"></div>
+      </div>
+    </div>
+    <div class="card" id="s6count" style="left:84px;top:1260px;width:540px;padding:30px 38px">
+      <div style="font-size:24px;font-weight:700;letter-spacing:.12em;color:var(--muted)">ПОГРУЗКА / РАЗГРУЗКА</div>
+      <div style="display:flex;align-items:baseline;gap:14px"><span id="s6num" style="font-size:150px;font-weight:800;letter-spacing:-.05em;line-height:1;color:var(--orange);font-variant-numeric:tabular-nums">0</span><span style="font-size:46px;font-weight:800">т</span></div>
+      <div style="font-size:34px;font-weight:700">за смену</div>
+    </div>
+    <div class="chip g" id="s6c1" style="left:660px;top:1262px;font-size:30px"><b>60 т</b> автовесы</div>
+    <div class="chip" id="s6c2" style="left:660px;top:1352px;font-size:30px"><b>20 мин</b> до БАКАД</div>
+    <div class="chip g" id="s6c3" style="left:660px;top:1442px;font-size:30px">потери <b>1–3%</b></div>
+  </section>
+
+  <!-- ============ S7 ============ -->
+  <section class="scene" id="s7">
+    <div style="position:absolute;inset:0;background:radial-gradient(1100px 900px at 50% 30%,#1b2420 0%,#0b0d0c 70%)"></div>
+    <div id="s7glowO" style="position:absolute;width:1200px;height:1200px;left:-300px;top:-200px;background:radial-gradient(circle,rgba(255,102,52,.20),transparent 60%)"></div>
+    <div id="s7glowG" style="position:absolute;width:1300px;height:1300px;left:200px;top:900px;background:radial-gradient(circle,rgba(80,127,81,.32),transparent 60%)"></div>
+    <div id="s7dust"></div>
+    <div id="s7cam" style="position:absolute;inset:0;transform-origin:50% 45%">
+      <div id="s7logo" style="position:absolute;left:0;right:0;top:330px;display:flex;justify-content:center;align-items:center;gap:40px">
+        <svg id="s7mark" width="300" height="250" viewBox="0 0 300 250" overflow="visible">
+          <path id="s7chev" d="M22 112 L150 30 L282 106" fill="none" stroke="#FF6634" stroke-width="34" stroke-linejoin="miter" stroke-linecap="butt" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+          <g fill="#fff" id="s7circles">
+            <circle cx="60"  cy="160" r="34"/><circle cx="126" cy="160" r="34"/>
+            <circle cx="60"  cy="220" r="34"/><circle cx="126" cy="220" r="34"/><circle cx="192" cy="220" r="34"/><circle cx="258" cy="220" r="34"/>
+          </g>
+        </svg>
+        <div id="s7word" style="font-size:66px;font-weight:800;line-height:.98;letter-spacing:.01em">
+          <div class="mask"><div class="ln">FRESH</div></div>
+          <div class="mask"><div class="ln">STORAGE</div></div>
+          <div class="mask"><div class="ln">CENTER</div></div>
+        </div>
+      </div>
+      <div id="s7price" style="position:absolute;left:0;right:0;top:760px;text-align:center">
+        <div style="font-size:44px;font-weight:600;color:rgba(255,255,255,.8)">хранение урожая</div>
+        <div style="font-size:250px;font-weight:800;letter-spacing:-.06em;line-height:.95;color:var(--orange)">от 3 ₸</div>
+        <div style="font-size:56px;font-weight:700">за кг в месяц</div>
+      </div>
+      <div class="chip g" id="s7batch" style="left:50%;top:1170px;font-size:38px;transform:translateX(-50%)">партия от <b>100 тонн</b></div>
+      <div id="s7cta" style="position:absolute;left:0;right:0;top:1290px;text-align:center">
+        <div style="font-size:36px;font-weight:600;color:rgba(255,255,255,.75)">Напишите — посчитаем под ваш урожай</div>
+        <div style="font-size:92px;font-weight:800;letter-spacing:-.02em;color:var(--orange);margin-top:14px">fsc.kz</div>
+        <div style="font-size:42px;font-weight:700;margin-top:6px">+7 777 122 13 09 · WhatsApp</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- chrome -->
+  <div class="corner c-tl"></div><div class="corner c-tr"></div><div class="corner c-bl"></div><div class="corner c-br"></div>
+  <div class="eyebrow" id="eyebrow"><div class="brand"><span class="dot"></span>FSC</div><span class="num" id="ebNum">01 / 07</span><span class="topic" id="ebTopic">ПРОБЛЕМА</span></div>
+  <div id="captions"><div class="cap" id="cap"></div></div>
+  <div id="progress"><i id="progI"></i></div>
+  <div id="flash"></div>
+  <div id="vignette"></div>
+  <canvas id="grain" width="540" height="960"></canvas>
+</div>
+
+<script>
+// ---------------- helpers ----------------
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const P = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const E = {
+  out3: p => 1 - Math.pow(1 - p, 3),
+  out5: p => 1 - Math.pow(1 - p, 5),
+  expo: p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p),
+  inOut: p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2,
+  back: p => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); },
+  bounce: p => { const n = 7.5625, d = 2.75;
+    if (p < 1 / d) return n * p * p; if (p < 2 / d) return n * (p -= 1.5 / d) * p + .75;
+    if (p < 2.5 / d) return n * (p -= 2.25 / d) * p + .9375; return n * (p -= 2.625 / d) * p + .984375; },
+  in3: p => p * p * p,
+};
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+// ---------------- timeline ----------------
+const SCENES = [
+  { id: 's1', s: 0,  e: 4,  topic: 'ПРОБЛЕМА',  cap: 'Вырастить урожай мало. Его ещё нужно *сохранить* до продажи.' },
+  { id: 's2', s: 4,  e: 9,  topic: 'СТЕНЫ',     cap: 'Стены из сэндвич-панелей держат температуру и влажность *ровно*.' },
+  { id: 's3', s: 9,  e: 15, topic: 'КЛИМАТ',    cap: 'Скажите, что кладёте, — камера *сама* выставит режим.' },
+  { id: 's4', s: 15, e: 20, topic: 'ВЛАЖНОСТЬ', cap: 'Продукт *не усыхает* и *не намокает*.' },
+  { id: 's5', s: 20, e: 25, topic: 'КОНТРОЛЬ',  cap: 'Камера в телефоне, а агроном-технолог *уже в цене*.' },
+  { id: 's6', s: 25, e: 31, topic: 'ЛОГИСТИКА', cap: 'Две фуры грузятся *под крышей* одновременно.' },
+  { id: 's7', s: 31, e: 36, topic: 'ЦЕНА',      cap: '' },
+];
+const DUR = 36;
+window.DURATION = DUR;
+const CUTS = SCENES.slice(1).map(s => s.s);
+
+// ---------------- build: S1 crates ----------------
+function makeBox(cls, W, H, D, faceFn) {
+  const b = document.createElement('div'); b.className = 'box ' + cls;
+  b.style.width = W + 'px'; b.style.height = H + 'px';
+  const f = (name, w, h, l, t, tr, extra) => {
+    const d = document.createElement('div'); d.className = 'face ' + name + (extra ? ' ' + extra : '');
+    Object.assign(d.style, { width: w + 'px', height: h + 'px', left: l + 'px', top: t + 'px', transform: tr });
+    b.appendChild(d); faceFn && faceFn(d, name, w, h); return d;
+  };
+  f('front', W, H, 0, 0, `translateZ(${D / 2}px)`);
+  f('back', W, H, 0, 0, `rotateY(180deg) translateZ(${D / 2}px)`);
+  f('right', D, H, (W - D) / 2, 0, `rotateY(90deg) translateZ(${W / 2}px)`, 'side');
+  f('left', D, H, (W - D) / 2, 0, `rotateY(-90deg) translateZ(${W / 2}px)`, 'side');
+  f('top', W, D, 0, (H - D) / 2, `rotateX(90deg) translateZ(${H / 2}px)`);
+  f('bottom', W, D, 0, (H - D) / 2, `rotateX(-90deg) translateZ(${H / 2}px)`);
+  return b;
+}
+const PRODUCE = [
+  { name: 'картофель', c1: '#e6c58f', c2: '#9c7442' },
+  { name: 'яблоки',    c1: '#ff6b5a', c2: '#a3201a' },
+  { name: 'лук',       c1: '#f0b35a', c2: '#a86520' },
+];
+const crates = [];
+(function buildCrates() {
+  const host = $('s1p');
+  const world = document.createElement('div'); world.className = 'box'; world.id = 's1world';
+  Object.assign(world.style, { left: '540px', top: '1020px', width: '0px', height: '0px' });
+  host.appendChild(world);
+  PRODUCE.forEach((pr, i) => {
+    const c = makeBox('crate', 250, 170, 230, (d, name, w, h) => {
+      if (name === 'top') {
+        for (let k = 0; k < 16; k++) {
+          const s = document.createElement('div'); s.className = 'produce';
+          const r = 44 + rnd() * 14;
+          Object.assign(s.style, { width: r + 'px', height: r + 'px', left: (rnd() * (w - r)) + 'px', top: (rnd() * (h - r)) + 'px',
+            background: `radial-gradient(circle at 35% 30%, ${pr.c1}, ${pr.c2} 75%)`, boxShadow: '0 4px 10px rgba(0,0,0,.5)' });
+          d.appendChild(s);
+        }
+      }
+    });
+    c.style.left = (-125 + (i - 1) * 300) + 'px'; c.style.top = '-85px';
+    world.appendChild(c);
+    const l = document.createElement('div'); l.className = 'lbl'; l.textContent = pr.name;
+    l.style.left = (540 + (i - 1) * 300) + 'px'; l.style.top = '1225px';
+    $('s1').appendChild(l);
+    crates.push({ el: c, lbl: l, i });
+  });
+})();
+
+// ---------------- build: S2 wall ----------------
+const wallLayers = [];
+(function buildWall() {
+  const host = $('s2p');
+  const world = document.createElement('div'); world.className = 'box'; world.id = 's2world';
+  Object.assign(world.style, { left: '540px', top: '1080px', width: '0', height: '0' });
+  host.appendChild(world);
+  const spec = [
+    { cls: 'steel', D: 12 }, { cls: 'foam', D: 110 }, { cls: 'steel', D: 12 },
+  ];
+  spec.forEach((sp, i) => {
+    const b = makeBox('layer', 260, 540, sp.D, (d, name) => {
+      d.classList.add(sp.cls);
+      if (name === 'left' || name === 'right' || name === 'bottom') d.classList.add('dark');
+    });
+    // build as thin slab: width=thickness along X, so rotate world so X is "through the wall"
+    b.style.left = '-130px'; b.style.top = '-270px';
+    world.appendChild(b); wallLayers.push(b);
+  });
+  const calls = [['сталь', 0], ['PIR-утеплитель', 1], ['сталь', 2]];
+  calls.forEach(([txt, i]) => {
+    const c = document.createElement('div'); c.className = 'callout';
+    c.className = 'chip'; c.style.position = 'relative'; c.style.fontSize = '30px';
+    c.innerHTML = `<span class="pt" style="width:14px;height:14px;border-radius:50%;background:${i === 1 ? '#e8bf55' : '#cfd5d8'}"></span>${txt}`;
+    $('s2calls').appendChild(c); c.id = 's2call' + i;
+  });
+  // heat arrows
+  for (let i = 0; i < 6; i++) {
+    const a = document.createElement('div'); a.className = 'heat'; a.id = 's2a' + i;
+    a.innerHTML = '<svg viewBox="0 0 24 24" width="70" height="70"><path d="M5 12h12M12 6l6 6-6 6" stroke="#FF6634" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    $('s2heat').appendChild(a);
+  }
+})();
+
+// ---------------- build: S4 chart ----------------
+const chartOut = [], chartIn = [];
+(function buildChart() {
+  const X0 = 70, X1 = 880, y = v => 480 - v * 12; // 0..30 → 480..120
+  const N = 60;
+  for (let i = 0; i <= N; i++) {
+    const p = i / N, x = lerp(X0, X1, p);
+    const v = 13 + 13 * Math.sin(p * Math.PI * 2 - 1.9) + 3.2 * Math.sin(p * 31) + 1.5 * Math.sin(p * 77);
+    chartOut.push([x, y(clamp(v, -2, 31))]);
+    chartIn.push([x, y(4 + .25 * Math.sin(p * 40))]);
+  }
+  const d = pts => pts.map((q, i) => (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join(' ');
+  $('s4out').setAttribute('d', d(chartOut));
+  $('s4in').setAttribute('d', d(chartIn));
+  const sp = []; for (let i = 0; i <= 40; i++) { const p = i / 40; sp.push([p * 398, 95 + 30 * Math.sin(p * 9) * Math.exp(-p * 1.2) + 6 * Math.sin(p * 37)]); }
+  $('s5spark').setAttribute('d', d(sp));
+})();
+const ptAt = (pts, p) => { const f = p * (pts.length - 1), i = Math.floor(f), k = f - i, a = pts[i], b = pts[Math.min(i + 1, pts.length - 1)]; return [lerp(a[0], b[0], k), lerp(a[1], b[1], k)]; };
+
+// ---------------- build: S6 trucks ----------------
+['s6t1', 's6t2'].forEach(id => {
+  $(id).innerHTML = `
+    <div style="position:absolute;left:5px;top:0;width:100px;height:58px;border-radius:12px 12px 6px 6px;background:${id === 's6t1' ? '#FF6634' : '#f2f2f2'};box-shadow:0 10px 20px rgba(0,0,0,.5)"></div>
+    <div style="position:absolute;left:0;top:66px;width:110px;height:184px;border-radius:6px;background:linear-gradient(90deg,#d9dddc,#ffffff,#d9dddc);box-shadow:0 14px 26px rgba(0,0,0,.55)"></div>
+    <div style="position:absolute;left:18px;top:100px;width:74px;height:8px;background:#507F51;border-radius:4px"></div>`;
+});
+
+// ---------------- build: S7 dust ----------------
+const dust = [];
+for (let i = 0; i < 70; i++) {
+  const d = document.createElement('div'); d.className = 'dust';
+  const r = 2 + rnd() * 5; d.style.width = d.style.height = r + 'px';
+  $('s7dust').appendChild(d);
+  dust.push({ el: d, x: rnd() * 1080, y: rnd() * 1920, vx: (rnd() - .5) * 30, vy: -10 - rnd() * 30, o: .15 + rnd() * .5, ph: rnd() * 6 });
+}
+
+// ---------------- grain ----------------
+const gctx = $('grain').getContext('2d');
+const grainFrames = [];
+for (let f = 0; f < 4; f++) {
+  const img = gctx.createImageData(540, 960);
+  for (let i = 0; i < img.data.length; i += 4) { const v = rnd() * 255; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 255; }
+  grainFrames.push(img);
+}
+
+// ---------------- captions ----------------
+let capScene = null;
+function setCaption(sc, lt, dur) {
+  const cap = $('cap');
+  if (!sc.cap) { $('captions').style.opacity = 0; return; }
+  if (capScene !== sc.id) {
+    capScene = sc.id;
+    cap.innerHTML = sc.cap.split(/(\*[^*]+\*)/).filter(Boolean).flatMap(chunk => {
+      const hot = chunk.startsWith('*'); const txt = hot ? chunk.slice(1, -1) : chunk;
+      return txt.split(/(\s+)/).map(w => /^\s+$/.test(w) ? w : `<span class="w${hot ? ' hot' : ''}">${w}</span>`);
+    }).join('');
+  }
+  const words = cap.querySelectorAll('.w');
+  const a = .35, b = Math.min(dur - .6, a + words.length * .26);
+  words.forEach((w, i) => w.classList.toggle('on', lt >= lerp(a, b, i / words.length)));
+  const pin = E.out3(P(lt, .15, .45));
+  $('captions').style.opacity = pin;
+  $('captions').style.transform = `translateY(${(1 - pin) * 30}px)`;
+}
+
+// ---------------- headline helper ----------------
+function headline(id, lt, opts = {}) {
+  const lines = document.querySelectorAll(`#${id} .ln`);
+  lines.forEach((l, i) => {
+    const p = E.expo(P(lt, .08 + i * .167, .62 + i * .167));
+    l.style.transform = `translateY(${(1 - p) * 110}%)`;
+  });
+  const sub = document.querySelector(`#${id} .sub`);
+  if (sub) { const p = E.out3(P(lt, .45 + lines.length * .12, .95 + lines.length * .12)); sub.style.opacity = p; sub.style.transform = `translateY(${(1 - p) * 30}px)`; }
+}
+
+// ---------------- scene updates ----------------
+const U = {
+  s1(t) {
+    // pop-up zoom headline 70% → 100% with hard brake
+    const h = $('s1h'); const p = P(t, 0, .45);
+    const s = lerp(.7, 1, E.back(p)); h.style.transform = `scale(${s})`; h.style.opacity = clamp(p * 3);
+    headline('s1h', t);
+    const world = $('s1world');
+    world.style.transform = `rotateX(-28deg) rotateY(${-28 + t * 7}deg)`;
+    crates.forEach(c => {
+      const t0 = .35 + c.i * .22, p = P(t, t0, t0 + .55);
+      const y = lerp(-1300, 0, E.bounce(p));
+      const rot = lerp(40 * (c.i - 1) + 30, 0, E.out3(p));
+      c.el.style.transform = `translateY(${y}px) rotateY(${rot}deg) rotateZ(${(1 - E.out3(p)) * 18}deg)`;
+      const lp = E.out3(P(t, t0 + .5, t0 + .8)); c.lbl.style.opacity = lp; c.lbl.style.transform = `translateY(${(1 - lp) * 20}px)`;
+      // spoil: desaturate produce after 2.3s
+      const sp = P(t, 2.3, 3.4);
+      const fl = `saturate(${1 - sp * .5}) brightness(${1 - sp * .3})`; if (c.fl !== fl) { c.fl = fl; c.el.querySelectorAll('.face').forEach(f => f.style.filter = f.classList.contains('side') ? fl + ' brightness(.68)' : fl); }
+    });
+    const cp = E.back(P(t, 2.1, 2.5)); const chip = $('s1chip');
+    chip.style.opacity = clamp(cp); chip.style.transform = `scale(${lerp(.6, 1, cp)})`; chip.style.transformOrigin = '0 50%';
+    const lv = Math.round(lerp(0, 30, E.out3(P(t, 2.3, 3.3))));
+    $('s1loss').textContent = (lv < 15 ? lv : '15–' + lv) + '%';
+    $('s1').querySelector('.bg').style.transform = `scale(${1.08 + t * .02})`;
+  },
+  s2(t) {
+    headline('s2h', t);
+    const world = $('s2world');
+    const ex = E.inOut(P(t, .5, 1.6)) - E.inOut(P(t, 3.2, 4.0)) * .7; // explode, then partially close
+    world.style.transform = `rotateX(8deg) rotateY(${-58 + t * 5}deg)`;
+    const gaps = [-1, 0, 1];
+    wallLayers.forEach((L, i) => {
+      const base = [-61, 0, 61][i];
+      const z = base + gaps[i] * ex * 170;
+      const ap = E.out5(P(t, .05 + i * .1, .6 + i * .1));
+      L.style.transform = `translateX(${z}px) translateY(${(1 - ap) * 900}px) rotateY(90deg)`;
+      L.style.opacity = clamp(ap * 2);
+    });
+    // callouts (screen-space, approximate)
+    for (let i = 0; i < 3; i++) {
+      const c = $('s2call' + i); const p = E.back(P(t, 1.2 + i * .15, 1.6 + i * .15));
+      Object.assign(c.style, { opacity: clamp(p), transform: `translateY(${(1 - p) * 50}px) scale(${lerp(.7, 1, p)})` });
+    }
+    // outside temp flips, inside steady
+    const sw = Math.floor(t / .7) % 2; $('s2tout').textContent = sw ? '−25°' : '+35°';
+    $('s2tout').style.color = sw ? '#7fc7ff' : '#FF6634';
+    const op = E.out3(P(t, .6, 1.0));
+    ['s2out', 's2tout'].forEach(id => { $(id).style.opacity = op; $(id).style.transform = `translateX(${(1 - op) * -40}px)`; });
+    const ip = E.out3(P(t, 1.0, 1.4));
+    ['s2in', 's2tin', 's2hin'].forEach(id => { $(id).style.opacity = ip; $(id).style.transform = `translateX(${(1 - ip) * 40}px)`; });
+    // heat arrows hitting the wall and bouncing back
+    for (let i = 0; i < 6; i++) {
+      const a = $('s2a' + i); const ph = ((t * .9 + i / 6) % 1);
+      const x = ph < .7 ? lerp(40, 280, ph / .7) : lerp(280, 170, (ph - .7) / .3);
+      const flip = ph >= .7;
+      Object.assign(a.style, { left: x + 'px', top: (880 + i * 75) + 'px', opacity: clamp(P(t, .8, 1.2)) * (flip ? 1 - (ph - .7) / .3 : Math.min(1, ph * 4)) * .9,
+        transform: flip ? 'scaleX(-1)' : 'none' });
+    }
+    $('s2').querySelector('.bg').style.transform = `scale(${1.1 + t * .015})`;
+  },
+  s3(t) {
+    headline('s3h', t);
+    const card = $('s3card'); const cp = E.out5(P(t, .1, .8));
+    card.style.transform = `translateY(${(1 - cp) * 300}px) rotateX(${lerp(35, 10, cp) - t * .6}deg) rotateY(${-8 + t * 1.6}deg)`;
+    card.style.opacity = clamp(cp * 1.5);
+    const MODES = [
+      { at: 0,   tab: 0, temp: 0,  hum: 75, mode: 'Лук · хранение',         bar: .38 },
+      { at: 2.4, tab: 2, temp: 1,  hum: 90, mode: 'Яблоки · хранение',      bar: .72 },
+      { at: 4.2, tab: 3, temp: 16, hum: 55, mode: 'Сухой склад',            bar: .55 },
+    ];
+    let cur = 0; MODES.forEach((m, i) => { if (t >= m.at + (i ? 0 : 0)) cur = i; });
+    const prev = MODES[Math.max(0, cur - 1)], m = MODES[cur];
+    const k = cur ? E.out3(P(t, m.at, m.at + .55)) : 1;
+    const temp = Math.round(lerp(prev.temp, m.temp, k)), hum = Math.round(lerp(prev.hum, m.hum, k));
+    $('s3t').textContent = (temp > 0 ? '+' : '') + temp; $('s3h2').textContent = hum;
+    $('s3mode').textContent = m.mode;
+    $('s3bar').style.width = lerp(prev.bar, m.bar, k) * 100 + '%';
+    const tabs = [...document.querySelectorAll('#s3tabs .tab')];
+    tabs.forEach((tb, i) => tb.classList.toggle('on', i === (k > .3 ? m.tab : prev.tab)));
+    const r0 = tabs[prev.tab], r1 = tabs[m.tab];
+    const pill = $('s3pill');
+    pill.style.left = lerp(r0.offsetLeft, r1.offsetLeft, E.inOut(k)) + 'px';
+    pill.style.width = lerp(r0.offsetWidth, r1.offsetWidth, E.inOut(k)) + 'px';
+    // tap cursor
+    const tapTimes = [{ at: .9, tab: 0 }, { at: 2.4, tab: 2 }, { at: 4.2, tab: 3 }];
+    let tp = tapTimes[0]; tapTimes.forEach(x => { if (t >= x.at - .5) tp = x; });
+    const tab = tabs[tp.tab]; const cr = card.getBoundingClientRect(); const br = tab.getBoundingClientRect();
+    const tx = br.left + br.width / 2, ty = br.top + br.height / 2 + 30;
+    const tap = $('s3tap'), ring = $('s3ring');
+    const appear = P(t, .6, .9);
+    const press = 1 - Math.abs(clamp((t - tp.at) / .12, -1, 1));
+    tap.style.left = tx + 'px'; tap.style.top = ty + 'px';
+    tap.style.opacity = appear * .85 * (1 - P(t, 5.3, 5.7));
+    tap.style.transform = `scale(${1 - press * .25})`;
+    const rp = P(t, tp.at, tp.at + .45);
+    Object.assign(ring.style, { left: (tx - 35 - rp * 50) + 'px', top: (ty - 35 - rp * 50) + 'px', width: (70 + rp * 100) + 'px', height: (70 + rp * 100) + 'px',
+      opacity: rp > 0 && rp < 1 ? 1 - rp : 0 });
+    $('s3live').style.opacity = .5 + .5 * Math.sin(t * 8);
+    $('s3').querySelector('.bg').style.transform = `scale(${1.12 + t * .015}) translateX(${t * -6}px)`;
+  },
+  s4(t) {
+    headline('s4h', t);
+    const cp = E.out5(P(t, .1, .7)); const card = $('s4card');
+    card.style.opacity = clamp(cp * 1.5); card.style.transform = `translateY(${(1 - cp) * 200}px) scale(${lerp(.92, 1, cp)})`;
+    const po = E.inOut(P(t, .5, 2.6)), pi = E.inOut(P(t, .7, 2.6));
+    $('s4out').setAttribute('stroke-dashoffset', 1 - po); $('s4in').setAttribute('stroke-dashoffset', 1 - pi);
+    const a = ptAt(chartOut, po), b = ptAt(chartIn, pi);
+    $('s4dotO').setAttribute('cx', a[0]); $('s4dotO').setAttribute('cy', a[1]); $('s4dotO').style.opacity = po > 0 ? 1 : 0;
+    $('s4dotI').setAttribute('cx', b[0]); $('s4dotI').setAttribute('cy', b[1]); $('s4dotI').style.opacity = pi > 0 ? 1 : 0;
+    const tag = $('s4tag'); const tg = E.out3(P(t, 2.3, 2.7));
+    Object.assign(tag.style, { left: (b[0] - 160) + 'px', top: (b[1] - 80) + 'px', opacity: tg });
+    const dp = E.back(P(t, 1.4, 1.9)); const drop = $('s4drop');
+    drop.style.transform = `scale(${dp}) translateY(${Math.sin(t * 3) * 6}px)`; drop.style.opacity = clamp(dp);
+    [['s4r1', 0], ['s4r2', .5]].forEach(([id, o]) => { const r = ((t + o) % 1); $(id).style.transform = `scale(${1 + r * .8})`; $(id).style.opacity = (1 - r) * .8 * clamp(P(t, 1.8, 2.0)); });
+    [['s4c1', 2.9], ['s4c2', 3.25]].forEach(([id, a0]) => { const p = E.back(P(t, a0, a0 + .4)); $(id).style.opacity = clamp(p); $(id).style.transform = `translateY(${(1 - p) * 60}px) scale(${lerp(.7, 1, p)})`; });
+    $('s4').querySelector('.bg').style.transform = `scale(${1.15 - t * .015})`;
+  },
+  s5(t) {
+    headline('s5h', t);
+    const ph = $('s5phone'); const pp = E.out5(P(t, .05, .9));
+    ph.style.transform = `translateY(${(1 - pp) * 700}px) rotateY(${lerp(55, 18, pp) - t * 3}deg) rotateX(${lerp(20, 6, pp)}deg) rotateZ(${lerp(-10, -3, pp)}deg)`;
+    const sp = E.inOut(P(t, .8, 2.4)); $('s5spark').setAttribute('stroke-dashoffset', 1 - sp);
+    const v = 3.8 + .1 * Math.sin(t * 2.2); $('s5t').textContent = '+' + v.toFixed(1);
+    $('s5live').style.opacity = .4 + .6 * (Math.sin(t * 7) > 0 ? 1 : 0);
+    const np = E.back(P(t, 2.2, 2.65)) * (1 - E.in3(P(t, 4.4, 4.8)));
+    const note = $('s5note'); note.style.transform = `translateY(${(1 - np) * -160}px)`; note.style.opacity = clamp(np);
+    const cp = E.back(P(t, 2.7, 3.15)); const card = $('s5card');
+    card.style.opacity = clamp(cp); card.style.transform = `translateX(${(1 - cp) * 200}px) rotate(${(1 - cp) * 6}deg)`;
+    $('s5').querySelector('.bg').style.transform = `scale(${1.1 + t * .02}) translateY(${t * 8}px)`;
+  },
+  s6(t) {
+    headline('s6h', t);
+    const map = $('s6map'); const mp = E.out5(P(t, .1, .9));
+    map.style.transform = `translateY(${(1 - mp) * 300}px) rotateX(${lerp(70, 52, mp)}deg) rotateZ(${-14 + t * 1.5}deg) scale(${lerp(.85, 1, mp)})`;
+    map.style.opacity = clamp(mp * 1.5);
+    // trucks drive in from bottom to canopy
+    [['s6t1', .6], ['s6t2', 1.0]].forEach(([id, a0]) => {
+      const p = E.inOut(P(t, a0, a0 + 1.9)); $(id).style.top = lerp(560, 250, p) + 'px';
+      $(id).style.opacity = clamp(P(t, a0 + .1, a0 + .5));
+    });
+    const sc = $('s6scale'); sc.style.boxShadow = `0 0 ${20 + 20 * Math.sin(t * 6)}px rgba(138,169,138,.6)`;
+    const cp = E.out5(P(t, 1.6, 2.1)); const cnt = $('s6count');
+    cnt.style.opacity = clamp(cp); cnt.style.transform = `translateY(${(1 - cp) * 80}px)`;
+    $('s6num').textContent = Math.round(125 * E.out3(P(t, 1.8, 3.6)));
+    [['s6c1', 2.6], ['s6c2', 3.1], ['s6c3', 3.6]].forEach(([id, a0]) => {
+      const p = E.out5(P(t, a0, a0 + .35)); $(id).style.opacity = p; $(id).style.transform = `translateX(${(1 - p) * 260}px)`;
+    });
+    $('s6').querySelector('.bg').style.transform = `scale(${1.25 - t * .03}) translateY(${t * -10}px)`;
+  },
+  s7(t) {
+    const cam = $('s7cam'); cam.style.transform = `scale(${1 + t * .018})`;
+    const fade = E.out3(P(t, 0, .5)); cam.style.opacity = fade;
+    $('s7chev').setAttribute('stroke-dashoffset', 1 - E.inOut(P(t, .15, .75)));
+    const circles = document.querySelectorAll('#s7circles circle');
+    circles.forEach((c, i) => {
+      const p = E.back(P(t, .5 + i * .08, .8 + i * .08));
+      c.setAttribute('transform', `translate(${c.getAttribute('cx')} ${c.getAttribute('cy')}) scale(${p}) translate(${-c.getAttribute('cx')} ${-c.getAttribute('cy')})`);
+    });
+    document.querySelectorAll('#s7word .ln').forEach((l, i) => { const p = E.expo(P(t, .7 + i * .1, 1.2 + i * .1)); l.style.transform = `translateY(${(1 - p) * 110}%)`; });
+    const pr = E.out5(P(t, 1.3, 1.9)); const price = $('s7price');
+    price.style.opacity = pr; price.style.transform = `scale(${lerp(1.25, 1, pr)})`; price.style.filter = `blur(${(1 - pr) * 12}px)`;
+    const bp = E.back(P(t, 2.1, 2.5)); const b = $('s7batch'); b.style.opacity = clamp(bp); b.style.transform = `translateX(-50%) scale(${lerp(.6, 1, bp)})`;
+    const cta = E.out3(P(t, 2.6, 3.1)); $('s7cta').style.opacity = cta; $('s7cta').style.transform = `translateY(${(1 - cta) * 40}px)`;
+    $('s7glowO').style.transform = `translate(${Math.sin(t * .8) * 60}px,${t * 20}px)`;
+    $('s7glowG').style.transform = `translate(${Math.cos(t * .7) * -60}px,${-t * 25}px)`;
+    dust.forEach(d => {
+      const x = (d.x + d.vx * t + 1080) % 1080, y = ((d.y + d.vy * t) % 1920 + 1920) % 1920;
+      d.el.style.transform = `translate(${x}px,${y}px)`; d.el.style.opacity = d.o * (.6 + .4 * Math.sin(t * 2 + d.ph));
+    });
+  },
+};
+
+// ---------------- master seek ----------------
+let lastScene = null;
+window.seek = function (t) {
+  t = clamp(t, 0, DUR - 1e-6);
+  const sc = SCENES.find(s => t >= s.s && t < s.e) || SCENES[SCENES.length - 1];
+  if (lastScene !== sc.id) { SCENES.forEach(s => $(s.id).style.display = s.id === sc.id ? 'block' : 'none'); lastScene = sc.id; }
+  const lt = t - sc.s, dur = sc.e - sc.s;
+  U[sc.id](lt, dur);
+  // whip transitions around cuts
+  const el = $(sc.id); let tx = 0, blur = 0, fl = 0;
+  const outP = P(lt, dur - .12, dur);            // outgoing
+  if (outP > 0 && sc.id !== 's7') { tx = -E.in3(outP) * 260; blur = outP * 22; }
+  const inP = P(lt, 0, .18);                     // incoming
+  if (sc.id !== 's1' && inP < 1) { tx = (1 - E.out3(inP)) * 300; blur = Math.max(blur, (1 - inP) * 24); fl = (1 - inP); }
+  if (sc.id === 's7') { tx = 0; blur = (1 - P(lt, 0, .35)) * 10; }
+  el.style.transform = `translateX(${tx}px)`; el.style.filter = blur > .2 ? `blur(${blur}px)` : 'none';
+  const flash = $('flash'); flash.style.opacity = fl * .55; flash.style.transform = `translateX(${(1 - fl) * 900 - 450}px)`;
+  // chrome
+  const idx = SCENES.indexOf(sc);
+  $('ebNum').textContent = String(idx + 1).padStart(2, '0') + ' / 07';
+  $('ebTopic').textContent = sc.topic;
+  const ebp = E.out3(P(lt, .05, .35)); $('ebTopic').style.opacity = ebp;
+  $('progI').style.width = (t / DUR * 100) + '%';
+  setCaption(sc, lt, dur);
+  const chromeHide = sc.id === 's7' ? E.out3(P(lt, 0, .4)) : 0;
+  ['eyebrow', 'progress'].forEach(id => $(id).style.opacity = 1 - chromeHide);
+  document.querySelectorAll('.corner').forEach(c => c.style.opacity = 1 - chromeHide * .6);
+  // grain
+  gctx.putImageData(grainFrames[Math.floor(t * 30) % grainFrames.length], 0, 0);
+};
+window.ready = (async () => {
+  await document.fonts.ready;
+  const urls = [...document.querySelectorAll('.bg')].map(b => b.style.backgroundImage.slice(5, -2));
+  await Promise.all(urls.map(u => new Promise(r => { const i = new Image(); i.onload = i.onerror = r; i.src = u; })));
+  window.seek(0); return true;
+})();
+</script>
+</body>
+</html>
