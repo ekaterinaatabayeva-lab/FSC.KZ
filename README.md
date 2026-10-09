@@ -19,7 +19,7 @@ assets/
 
 ```js
 const CONFIG = {
-  whatsappNumber: "77771221309",
+  whatsappNumber: "77024206550",
   whatsappDefaultText: "...",
   address: "...",
   email: "...",
