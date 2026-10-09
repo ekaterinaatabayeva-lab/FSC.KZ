@@ -140,6 +140,33 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:var(--ink);
     </div>
   </section>
 
+  <!-- ============ S1b ============ -->
+  <section class="scene" id="s1b">
+    <div class="bg" id="s1bbg" style="background-image:url(bg/terminal.jpg);filter:blur(22px) brightness(.5) saturate(1.2)"></div>
+    <div class="shade" style="background:rgba(11,13,12,.55)"></div><div class="tint-g"></div>
+    <div class="hl" id="s1bh">
+      <span class="mask"><span class="ln" style="font-size:100px">Современный</span></span>
+      <span class="mask"><span class="ln o" style="font-size:100px">агротерминал</span></span>
+      <span class="sub">Хранение овощей под Алматы</span>
+    </div>
+    <div class="card" id="s1bcard" style="left:50px;top:640px;width:980px;height:640px;overflow:hidden;padding:0">
+      <div id="s1bimg" style="position:absolute;left:0;top:0;width:1145px;height:640px;background:url(bg/terminal.jpg) center/cover;transform-origin:30% 50%"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(11,13,12,.5))"></div>
+      <div id="s1bscan" style="position:absolute;top:0;bottom:0;width:140px;background:linear-gradient(90deg,transparent,rgba(255,102,52,.0) 10%,rgba(255,102,52,.35) 92%,rgba(255,130,90,.95) 100%);mix-blend-mode:screen"></div>
+      <div id="s1bgrid" style="position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/70px 70px,linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px) 0 0/70px 70px;opacity:0"></div>
+      <div class="corner" style="left:20px;top:20px;border-color:var(--orange);width:44px;height:44px"></div>
+      <div class="corner" style="right:20px;top:20px;border-color:var(--orange);width:44px;height:44px"></div>
+      <div class="corner" style="left:20px;bottom:20px;border-color:var(--orange);width:44px;height:44px"></div>
+      <div class="corner" style="right:20px;bottom:20px;border-color:var(--orange);width:44px;height:44px"></div>
+      <div id="s1btag" style="position:absolute;left:34px;bottom:30px;display:flex;align-items:center;gap:12px;font-size:24px;font-weight:700;letter-spacing:.14em;color:#fff"><span class="dot" style="width:12px;height:12px;border-radius:50%;background:var(--orange);box-shadow:0 0 14px var(--orange)"></span>ТАЛГАРСКИЙ РАЙОН · АЛМАТИНСКАЯ ОБЛ.</div>
+    </div>
+    <div id="s1bstats" style="position:absolute;left:50px;right:50px;top:1330px;display:flex;gap:16px">
+      <div class="card st" style="position:relative;flex:1;padding:24px 26px"><div style="font-size:70px;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--orange)" data-n="8">0</div><div style="font-size:26px;font-weight:600;color:var(--muted);margin-top:6px">камер</div></div>
+      <div class="card st" style="position:relative;flex:1.35;padding:24px 26px"><div style="font-size:70px;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--orange)"><span data-n="5000" data-sp="1">0</span><span style="font-size:36px;color:var(--white)"> т</span></div><div style="font-size:26px;font-weight:600;color:var(--muted);margin-top:6px">общая ёмкость</div></div>
+      <div class="card st" style="position:relative;flex:1.2;padding:24px 26px"><div style="font-size:70px;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--orange)"><span data-n="2400" data-sp="1">0</span><span style="font-size:36px;color:var(--white)"> м²</span></div><div style="font-size:26px;font-weight:600;color:var(--muted);margin-top:6px">площадь</div></div>
+    </div>
+  </section>
+
   <!-- ============ S2 ============ -->
   <section class="scene" id="s2">
     <div class="bg" style="background-image:url(bg/bay.jpg)"></div>
@@ -345,7 +372,7 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:var(--ink);
 
   <!-- chrome -->
   <div class="corner c-tl"></div><div class="corner c-tr"></div><div class="corner c-bl"></div><div class="corner c-br"></div>
-  <div class="eyebrow" id="eyebrow"><div class="brand"><span class="dot"></span>FSC</div><span class="num" id="ebNum">01 / 07</span><span class="topic" id="ebTopic">ПРОБЛЕМА</span></div>
+  <div class="eyebrow" id="eyebrow"><div class="brand"><span class="dot"></span>FSC</div><span class="num" id="ebNum">01 / 08</span><span class="topic" id="ebTopic">ПРОБЛЕМА</span></div>
   <div id="captions"><div class="cap" id="cap"></div></div>
   <div id="progress"><i id="progI"></i></div>
   <div id="flash"></div>
@@ -374,15 +401,16 @@ let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 214748364
 
 // ---------------- timeline ----------------
 const SCENES = [
-  { id: 's1', s: 0,  e: 4,  topic: 'ПРОБЛЕМА',  cap: 'Вырастить урожай мало. Его ещё нужно *сохранить* до продажи.' },
-  { id: 's2', s: 4,  e: 9,  topic: 'СТЕНЫ',     cap: 'Стены из сэндвич-панелей держат температуру и влажность *ровно*.' },
-  { id: 's3', s: 9,  e: 15, topic: 'КЛИМАТ',    cap: 'Скажите, что кладёте, — камера *сама* выставит режим.' },
-  { id: 's4', s: 15, e: 20, topic: 'ВЛАЖНОСТЬ', cap: 'Продукт *не усыхает* и *не намокает*.' },
-  { id: 's5', s: 20, e: 25, topic: 'КОНТРОЛЬ',  cap: 'Камера в телефоне, а агроном-технолог *уже в цене*.' },
-  { id: 's6', s: 25, e: 31, topic: 'ЛОГИСТИКА', cap: 'Две фуры грузятся *под крышей* одновременно.' },
-  { id: 's7', s: 31, e: 36, topic: 'ЦЕНА',      cap: '' },
+  { id: 's1',  s: 0,    e: 4,    topic: 'ПРОБЛЕМА',  cap: 'Вырастить урожай мало — его ещё нужно *сохранить* до продажи' },
+  { id: 's1b', s: 4,    e: 7.5,  topic: 'ТЕРМИНАЛ',  cap: 'Климатический агротерминал для *хранения урожая*' },
+  { id: 's2',  s: 7.5,  e: 12.5, topic: 'СТЕНЫ',     cap: 'Стены из сэндвич-панелей держат температуру и влажность *ровно*' },
+  { id: 's3',  s: 12.5, e: 18.5, topic: 'КЛИМАТ',    cap: 'Скажите, что кладёте, — камера *сама* выставит режим' },
+  { id: 's4',  s: 18.5, e: 23.5, topic: 'ВЛАЖНОСТЬ', cap: 'Продукт *не усыхает* и *не намокает*' },
+  { id: 's5',  s: 23.5, e: 28.5, topic: 'КОНТРОЛЬ',  cap: 'Камера в телефоне, а агроном-технолог *уже в цене*' },
+  { id: 's6',  s: 28.5, e: 34.5, topic: 'ЛОГИСТИКА', cap: 'Две фуры грузятся *под крышей* одновременно' },
+  { id: 's7',  s: 34.5, e: 39.5, topic: 'ЦЕНА',      cap: '' },
 ];
-const DUR = 36;
+const DUR = 39.5;
 window.DURATION = DUR;
 const CUTS = SCENES.slice(1).map(s => s.s);
 
@@ -570,6 +598,26 @@ const U = {
     $('s1loss').textContent = (lv < 15 ? lv : '15–' + lv) + '%';
     $('s1').querySelector('.bg').style.transform = `scale(${1.08 + t * .02})`;
   },
+  s1b(t) {
+    headline('s1bh', t);
+    const cp = E.out5(P(t, .15, .85)), card = $('s1bcard');
+    card.style.opacity = clamp(cp * 1.4); card.style.transform = `translateY(${(1 - cp) * 240}px) scale(${lerp(.9, 1, cp)})`;
+    // slow pan + push-in across the photo (logo side -> trucks -> building)
+    const pan = E.inOut(P(t, .2, 3.4));
+    $('s1bimg').style.transform = `translateX(${-pan * 165}px) scale(${1.04 + pan * .12})`;
+    // scanning light sweep + grid flicker
+    const sw = P(t, .5, 2.4);
+    $('s1bscan').style.left = (lerp(-160, 1000, E.inOut(sw))) + 'px'; $('s1bscan').style.opacity = sw > 0 && sw < 1 ? 1 : 0;
+    $('s1bgrid').style.opacity = (sw > 0 && sw < 1 ? .85 : 0) * (.55 + .45 * Math.sin(t * 30));
+    $('s1btag').style.opacity = E.out3(P(t, 1.3, 1.7));
+    document.querySelectorAll('#s1bstats .st').forEach((c, i) => {
+      const p = E.back(P(t, 1.0 + i * .18, 1.45 + i * .18));
+      c.style.opacity = clamp(p); c.style.transform = `translateY(${(1 - p) * 90}px) scale(${lerp(.8, 1, p)})`;
+      const n = c.querySelector('[data-n]'); const v = Math.round(+n.dataset.n * E.out3(P(t, 1.2 + i * .18, 2.5)));
+      n.textContent = n.dataset.sp ? String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : v;
+    });
+    $('s1bbg').style.transform = `scale(${1.1 + t * .02})`;
+  },
   s2(t) {
     headline('s2h', t);
     const world = $('s2world');
@@ -736,7 +784,7 @@ window.seek = function (t) {
   const flash = $('flash'); flash.style.opacity = fl * .55; flash.style.transform = `translateX(${(1 - fl) * 900 - 450}px)`;
   // chrome
   const idx = SCENES.indexOf(sc);
-  $('ebNum').textContent = String(idx + 1).padStart(2, '0') + ' / 07';
+  $('ebNum').textContent = String(idx + 1).padStart(2, '0') + ' / 08';
   $('ebTopic').textContent = sc.topic;
   const ebp = E.out3(P(lt, .05, .35)); $('ebTopic').style.opacity = ebp;
   $('progI').style.width = (t / DUR * 100) + '%';

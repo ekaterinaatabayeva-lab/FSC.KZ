@@ -8,7 +8,13 @@ import wave
 import numpy as np
 
 SR = 48000
-DUR = 36.0
+DUR = 39.5
+SH = 3.5  # new overview scene inserted at 4.0 s
+
+
+def S(x):
+    return x + SH if x >= 4 else x
+
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
 
@@ -193,7 +199,7 @@ for b in range(int(DUR / bar) + 1):
         tb = t0 + q * beat
         if tb >= DUR - 0.05:
             continue
-        if 31.0 <= tb < 31.9:  # breath before the logo
+        if 34.5 <= tb < 35.4:  # breath before the logo
             continue
         add(mus, tb, kick(), 0.55)
         add(mus, tb + beat / 2, hat(), 0.10, pan=0.3)
@@ -203,52 +209,58 @@ for b in range(int(DUR / bar) + 1):
             add(mus, tb, hat(open_=True), 0.05, pan=-0.3)
 
 # ---------------- SFX timeline ----------------
-add(fx, 0.00, sub_drop(), 0.9)
-add(fx, 0.00, air_hiss(1.1), 0.35, pan=-0.2)
+add(fx, S(0.00), sub_drop(), 0.9)
+add(fx, S(0.00), air_hiss(1.1), 0.35, pan=-0.2)
 for i in range(3):  # crate landings
-    add(fx, 0.35 + i * 0.22 + 0.20, wood(), 0.7, pan=(i - 1) * 0.5)
-add(fx, 2.10, pop(), 0.45)
+    add(fx, S(0.35 + i * 0.22 + 0.20), wood(), 0.7, pan=(i - 1) * 0.5)
+add(fx, S(2.10), pop(), 0.45)
 for k in range(10):
-    add(fx, 2.3 + k * 0.1, tick(), 0.25)
+    add(fx, S(2.3 + k * 0.1), tick(), 0.25)
 
-CUTS = [4, 9, 15, 20, 25, 31]
+CUTS = [4, 7.5, 12.5, 18.5, 23.5, 28.5, 34.5]
 for c in CUTS:
     add(fx, c - 0.22, whoosh(0.42, rise=True), 0.55)
 
-add(fx, 4.00, thump(), 0.9)
-add(fx, 4.05, turbine(1.8), 0.35)
+add(fx, 4.00, impact(1.0), 0.55)
+add(fx, 4.05, shimmer(2.2), 0.45)
 for i in range(3):
-    add(fx, 4.15 + i * 0.1, metal(0.4, 480 + i * 90), 0.35, pan=(i - 1) * 0.4)
-add(fx, 4.55, whoosh(0.5, 200, 3000, rise=False), 0.25)
+    add(fx, 5.0 + i * 0.18, pop(0.1, 600 + i * 150, 1300 + i * 150), 0.35, pan=(i - 1) * 0.4)
+for k in range(12):
+    add(fx, 5.0 + k * 0.1, tick(), 0.15)
+add(fx, S(4.00), thump(), 0.9)
+add(fx, S(4.05), turbine(1.8), 0.35)
 for i in range(3):
-    add(fx, 5.3 + i * 0.15, pop(0.1, 600, 1300), 0.3)
+    add(fx, S(4.15 + i * 0.1), metal(0.4, 480 + i * 90), 0.35, pan=(i - 1) * 0.4)
+add(fx, S(4.55), whoosh(0.5, 200, 3000, rise=False), 0.25)
+for i in range(3):
+    add(fx, S(5.3 + i * 0.15), pop(0.1, 600, 1300), 0.3)
 
 for tt in (9.9, 11.4, 13.2):  # panel taps
-    add(fx, tt, click(), 0.6)
+    add(fx, S(tt), click(), 0.6)
     for k in range(5):
-        add(fx, tt + 0.06 + k * 0.09, tick(), 0.18)
+        add(fx, S(tt + 0.06 + k * 0.09), tick(), 0.18)
 
-add(fx, 16.40, bloop(), 0.55)
-add(fx, 17.90, pop(), 0.45, pan=-0.3)
-add(fx, 18.25, pop(0.12, 600, 1300), 0.45, pan=0.3)
+add(fx, S(16.40), bloop(), 0.55)
+add(fx, S(17.90), pop(), 0.45, pan=-0.3)
+add(fx, S(18.25), pop(0.12, 600, 1300), 0.45, pan=0.3)
 
-add(fx, 20.05, whoosh(0.5, 300, 4000, rise=False), 0.3)
-add(fx, 22.20, ding(), 0.35)
-add(fx, 22.32, ding(0.9, 1975.5), 0.25)
-add(fx, 22.70, pop(), 0.4, pan=0.4)
+add(fx, S(20.05), whoosh(0.5, 300, 4000, rise=False), 0.3)
+add(fx, S(22.20), ding(), 0.35)
+add(fx, S(22.32), ding(0.9, 1975.5), 0.25)
+add(fx, S(22.70), pop(), 0.4, pan=0.4)
 
-add(fx, 25.55, rumble(2.4), 0.35)
+add(fx, S(25.55), rumble(2.4), 0.35)
 for k in range(18):
-    add(fx, 26.8 + k * 0.1, tick(), 0.18)
+    add(fx, S(26.8 + k * 0.1), tick(), 0.18)
 for tt in (27.6, 28.1, 28.6):
-    add(fx, tt, pop(0.1, 700, 1400), 0.35, pan=0.4)
+    add(fx, S(tt), pop(0.1, 700, 1400), 0.35, pan=0.4)
 
-add(fx, 31.00, click(0.08, 1800), 0.8)
+add(fx, S(31.00), click(0.08, 1800), 0.8)
 for i in range(6):
-    add(fx, 31.5 + i * 0.08, click(0.04, 2600 + i * 180), 0.35, pan=(i - 2.5) * 0.15)
-add(fx, 32.30, impact(), 0.8)
-add(fx, 33.10, pop(), 0.4)
-add(fx, 33.60, shimmer(), 0.5)
+    add(fx, S(31.5 + i * 0.08), click(0.04, 2600 + i * 180), 0.35, pan=(i - 2.5) * 0.15)
+add(fx, S(32.30), impact(), 0.8)
+add(fx, S(33.10), pop(), 0.4)
+add(fx, S(33.60), shimmer(), 0.5)
 
 
 # ---------------- mix ----------------
