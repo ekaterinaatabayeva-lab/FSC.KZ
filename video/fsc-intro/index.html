@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>FSC Intro</title>
+<link rel="stylesheet" href="base.css">
+<style>
+.scene{background:radial-gradient(1100px 900px at 85% 10%,#1b2420 0%,#0b0d0c 70%)}
+.glow-o{position:absolute;width:1100px;height:1100px;border-radius:50%;background:radial-gradient(circle,rgba(255,102,52,.22),transparent 62%)}
+.glow-g{position:absolute;width:1200px;height:1200px;border-radius:50%;background:radial-gradient(circle,rgba(80,127,81,.30),transparent 62%)}
+.gridbg{position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/90px 90px,linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/90px 90px}
+.hl{top:290px}
+.big{font-weight:800;letter-spacing:-.05em;line-height:1}
+.role{position:absolute;top:640px;width:470px;height:880px;border-radius:44px;overflow:hidden;
+  background:linear-gradient(170deg,rgba(40,48,44,.95),rgba(14,17,16,.97));border:1.5px solid rgba(255,255,255,.14);box-shadow:0 60px 120px rgba(0,0,0,.55)}
+.role svg{position:absolute;left:10px;top:40px}
+.plate{position:absolute;left:24px;right:24px;border-radius:26px;display:flex;align-items:center;justify-content:center;font-weight:800;text-transform:uppercase;letter-spacing:.01em}
+.q{position:absolute;left:80px;width:920px;height:150px;border-radius:40px;display:flex;align-items:center;gap:30px;padding:0 40px;font-size:54px;font-weight:800;letter-spacing:-.02em;
+  background:linear-gradient(160deg,rgba(32,38,35,.94),rgba(14,17,16,.96));border:1.5px solid var(--line);box-shadow:0 40px 80px rgba(0,0,0,.45)}
+.q .ic{width:92px;height:92px;flex:none;border-radius:26px;display:grid;place-items:center;background:rgba(255,102,52,.14);border:2px solid rgba(255,102,52,.55)}
+.fchip{position:absolute;display:flex;align-items:center;gap:14px;padding:12px 26px 12px 16px;border-radius:999px;font-size:34px;font-weight:700;background:rgba(14,17,16,.86);border:1.5px solid var(--line);backdrop-filter:blur(12px);white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- ============ A: WHO ============ -->
+<section class="scene" id="sa">
+  <div class="gridbg"></div><div class="glow-o" style="left:350px;top:-300px"></div><div class="glow-g" style="left:-500px;top:900px"></div>
+  <div class="hl" id="sah">
+    <span class="mask"><span class="ln" style="font-size:108px">Вы фермер</span></span>
+    <span class="mask"><span class="ln o" style="font-size:108px">или трейдер?</span></span>
+  </div>
+  <div class="role" id="rf" style="left:50px">
+    <svg id="svgF" width="450" height="656" viewBox="0 0 300 520"></svg>
+    <div class="plate" style="bottom:128px;height:96px;font-size:56px;background:var(--orange);color:#111">фермер</div>
+    <div class="plate" style="bottom:32px;height:76px;font-size:32px;font-weight:700;text-transform:none;background:rgba(255,255,255,.08);color:#fff">выращиваю урожай</div>
+  </div>
+  <div class="role" id="rt" style="left:560px">
+    <svg id="svgT" width="450" height="656" viewBox="0 0 300 520"></svg>
+    <div class="plate" style="bottom:128px;height:96px;font-size:56px;background:var(--lg);color:#0b0d0c">трейдер</div>
+    <div class="plate" style="bottom:32px;height:76px;font-size:32px;font-weight:700;text-transform:none;background:rgba(255,255,255,.08);color:#fff">закупаю партии</div>
+  </div>
+</section>
+
+<!-- ============ B: HARVEST ============ -->
+<section class="scene" id="sb">
+  <svg id="field" width="1080" height="1920" viewBox="0 0 1080 1920" style="position:absolute;left:0;top:0">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0d0c"/><stop offset=".55" stop-color="#2b1a12"/><stop offset="1" stop-color="#7a3a1c"/></linearGradient>
+      <radialGradient id="sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffb27a" stop-opacity=".95"/><stop offset=".35" stop-color="#FF6634" stop-opacity=".55"/><stop offset="1" stop-color="#FF6634" stop-opacity="0"/></radialGradient>
+      <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2b16"/><stop offset=".25" stop-color="#2e1c10"/><stop offset="1" stop-color="#150d07"/></linearGradient>
+    </defs>
+    <rect width="1080" height="900" fill="url(#sky)"/>
+    <circle id="sunc" cx="540" cy="880" r="430" fill="url(#sun)"/>
+    <path d="M0 880 C150 830 260 850 380 868 C520 840 640 845 760 866 C900 836 1000 850 1080 862 L1080 920 L0 920 Z" fill="#1a130c"/>
+    <rect y="868" width="1080" height="1052" fill="url(#soil)"/>
+    <g id="rows" stroke="#6b4426" stroke-opacity=".7" fill="none"></g>
+    <g id="clods"></g>
+  </svg>
+  <div class="hl" id="sbh" style="top:290px">
+    <span class="mask"><span class="ln" style="font-size:108px">Сбор урожая</span></span>
+    <span class="mask"><span class="ln o" style="font-size:108px">в разгаре</span></span>
+  </div>
+  <div id="tractor" style="position:absolute;left:0;top:0"></div>
+  <div id="workers"></div>
+  <div id="bchips" style="position:absolute;left:0;right:0;top:1580px;display:flex;justify-content:center;gap:12px"></div>
+</section>
+
+<!-- ============ C: QUESTION ============ -->
+<section class="scene" id="sc">
+  <div class="gridbg"></div><div class="glow-o" style="left:350px;top:200px"></div><div class="glow-g" style="left:-500px;top:1000px"></div>
+  <div class="hl" id="sch">
+    <span class="mask"><span class="ln" style="font-size:108px">И тут встаёт</span></span>
+    <span class="mask"><span class="ln o" style="font-size:108px">вопрос<span id="dots"></span></span></span>
+  </div>
+  <div id="qs"></div>
+  <div id="qmark" style="position:absolute;left:0;right:0;top:1300px;text-align:center;font-size:420px;font-weight:800;color:var(--orange);line-height:1;text-shadow:0 0 120px rgba(255,102,52,.55)">?</div>
+</section>
+
+<div class="corner c-tl"></div><div class="corner c-tr"></div><div class="corner c-bl"></div><div class="corner c-br"></div>
+<div class="eyebrow" id="eyebrow"><div class="brand"><span class="dot"></span>FSC</div><span class="topic" id="ebTopic" style="color:var(--lg)">ХРАНЕНИЕ УРОЖАЯ</span></div>
+<div id="flash"></div><div id="vignette"></div>
+<canvas id="grain" width="540" height="960"></canvas>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const P = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const E = {
+  out3: p => 1 - Math.pow(1 - p, 3), out5: p => 1 - Math.pow(1 - p, 5),
+  expo: p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p),
+  inOut: p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2,
+  back: p => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); },
+  in3: p => p * p * p,
+  bounce: p => { const n = 7.5625, d = 2.75; if (p < 1 / d) return n * p * p; if (p < 2 / d) return n * (p -= 1.5 / d) * p + .75; if (p < 2.5 / d) return n * (p -= 2.25 / d) * p + .9375; return n * (p -= 2.625 / d) * p + .984375; },
+};
+let seed = 5; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+const DUR = 7.742; window.DURATION = DUR;
+const SC = [{ id: 'sa', s: 0, e: 2.6 }, { id: 'sb', s: 2.6, e: 5.2 }, { id: 'sc', s: 5.2, e: 7.742 }];
+
+// ---------------- characters ----------------
+function produce(cx, cy, n, cols) {
+  let s = '';
+  for (let i = 0; i < n; i++) { const x = cx + (i % 5) * 28 - 56 + (rnd() - .5) * 6, y = cy - Math.floor(i / 5) * 12 + (rnd() - .5) * 4, c = cols[i % cols.length];
+    s += `<ellipse cx="${x}" cy="${y}" rx="17" ry="13" fill="${c}"/>`; }
+  return s;
+}
+function person(o) {
+  const id = o.id;
+  const vest = o.vest ? `
+    <path d="M96 176 L134 176 L142 340 L96 340 Z" fill="#FF6634"/><path d="M204 176 L166 176 L158 340 L204 340 Z" fill="#FF6634"/>
+    <rect x="96" y="262" width="46" height="14" fill="#e9ece6"/><rect x="158" y="262" width="46" height="14" fill="#e9ece6"/>` : `
+    <path d="M128 172 L150 216 L172 172 Z" fill="#f4f1ea"/><path d="M120 172 L150 232 L98 340 L92 200 Z" fill="#00000030"/>
+    <path d="M144 204 L156 204 L161 252 L150 266 L139 252 Z" fill="#FF6634"/>`;
+  const hat = o.cap ? `<path d="M102 92 Q104 38 150 36 Q196 38 198 92 Z" fill="#1c1f1d"/><path d="M150 86 Q200 82 236 98 L230 108 Q192 100 150 100 Z" fill="#111413"/>`
+    : `<path d="M102 94 Q98 40 150 40 Q202 40 198 94 Q184 62 150 62 Q116 62 102 94 Z" fill="#14100c"/>`;
+  return `
+  <g id="${id}legs">
+    <rect x="104" y="318" width="42" height="156" rx="14" fill="${o.pants}"/><rect x="154" y="318" width="42" height="156" rx="14" fill="${o.pants}"/>
+    <rect x="96" y="464" width="58" height="34" rx="12" fill="#17110c"/><rect x="146" y="464" width="58" height="34" rx="12" fill="#17110c"/>
+  </g>
+  <g id="${id}up">
+    <g id="${id}armL"><rect x="74" y="188" width="36" height="142" rx="18" fill="${o.jacket}"/><circle cx="92" cy="334" r="21" fill="${o.skin}"/>${o.clip ? '<rect x="58" y="312" width="52" height="66" rx="6" fill="#ece7d9"/><rect x="66" y="324" width="36" height="5" fill="#9aa39b"/><rect x="66" y="336" width="30" height="5" fill="#9aa39b"/><rect x="66" y="348" width="34" height="5" fill="#9aa39b"/>' : ''}</g>
+    <rect x="90" y="168" width="120" height="176" rx="32" fill="${o.jacket}"/>
+    ${vest}
+    <rect x="132" y="138" width="36" height="40" rx="12" fill="${o.skin}"/>
+    <g id="${id}head">
+      <circle cx="104" cy="104" r="10" fill="${o.skin}"/><circle cx="196" cy="104" r="10" fill="${o.skin}"/>
+      <circle cx="150" cy="100" r="46" fill="${o.skin}"/>
+      ${hat}
+      <circle cx="133" cy="102" r="5" fill="#1a1410"/><circle cx="167" cy="102" r="5" fill="#1a1410"/>
+      <path d="M124 90 Q133 84 142 90M158 90 Q167 84 176 90" stroke="#1a1410" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M134 122 Q150 136 166 122" stroke="#7a3b2a" stroke-width="5" fill="none" stroke-linecap="round"/>
+    </g>
+    ${o.crate ? `<g id="${id}crate"><rect x="62" y="290" width="176" height="96" rx="8" fill="#b98550" stroke="#6b4422" stroke-width="5"/><rect x="62" y="318" width="176" height="6" fill="#6b4422"/><rect x="62" y="348" width="176" height="6" fill="#6b4422"/>${produce(150, 292, 10, ['#d9b57a', '#e0a339', '#c9904a'])}</g>` : ''}
+    <g id="${id}armR"><rect x="190" y="188" width="36" height="142" rx="18" fill="${o.jacket}"/><circle cx="208" cy="334" r="21" fill="${o.skin}"/>${o.phone ? `<g id="${id}phone"><rect x="194" y="318" width="40" height="72" rx="9" fill="#101312" stroke="#cfd5d2" stroke-width="3"/><rect x="199" y="326" width="30" height="52" rx="4" fill="#2a8f5a"/></g>` : ''}</g>
+  </g>`;
+}
+$('svgF').innerHTML = person({ id: 'F', skin: '#d9ab84', jacket: '#507F51', pants: '#232a26', vest: true, cap: true, crate: true });
+$('svgT').innerHTML = person({ id: 'T', skin: '#c89a74', jacket: '#2b312e', pants: '#1c201e', vest: false, cap: false, phone: true, clip: true });
+
+// workers
+const WK = [
+  { x: 190, y: 1420, s: .62,  jacket: '#507F51', skin: '#d9ab84', cap: true,  ph: 0 },
+  { x: 560, y: 1290, s: .46, jacket: '#5d6a73', skin: '#c89a74', cap: true,  ph: .35 },
+  { x: 850, y: 1500, s: .74,  jacket: '#3f6a52', skin: '#d4a47c', cap: false, ph: .7 },
+];
+WK.forEach((w, i) => {
+  const d = document.createElement('div'); d.id = 'w' + i; d.style.cssText = `position:absolute;left:${w.x - 150 * w.s}px;top:${w.y - 496 * w.s}px;width:${420 * w.s}px;height:${520 * w.s}px`;
+  d.innerHTML = `<svg width="${420 * w.s}" height="${520 * w.s}" viewBox="0 0 420 520" overflow="visible">
+    ${person({ id: 'W' + i, skin: w.skin, jacket: w.jacket, pants: '#232a26', vest: true, cap: w.cap })}
+    <g transform="translate(236 408)"><rect x="0" y="0" width="150" height="86" rx="8" fill="#b98550" stroke="#6b4422" stroke-width="5"/><rect x="0" y="26" width="150" height="6" fill="#6b4422"/><rect x="0" y="54" width="150" height="6" fill="#6b4422"/>
+      <g id="cp${i}">${produce(76, 4, 10, ['#d9b57a', '#e0a339', '#c9904a'])}</g></g>
+    <circle id="sp${i}" cx="0" cy="0" r="16" fill="#e0a339" opacity="0"/></svg>`;
+  $('workers').appendChild(d);
+});
+
+// tractor
+$('tractor').innerHTML = `<svg id="trsvg" width="1040" height="600" viewBox="-330 -60 860 500" overflow="visible">
+  <g>
+    <rect x="-300" y="150" width="380" height="96" rx="12" fill="#8d6a45" stroke="#4a3320" stroke-width="6"/>
+    <g>${produce(-110, 148, 15, ['#d9b57a', '#e0a339', '#c9904a']).replace(/cx="(-?\d+\.?\d*)"/g, (m, v) => `cx="${+v - 40 + 2}"`)}${produce(-170, 138, 10, ['#d9b57a', '#e0a339'])}</g>
+    <rect x="80" y="196" width="60" height="12" fill="#4a3320"/>
+    <circle id="trw3" cx="-190" cy="262" r="46" fill="#15110d"/><circle cx="-190" cy="262" r="18" fill="#8a8f8a"/>
+    <rect x="124" y="136" width="130" height="66" rx="10" fill="#FF6634"/>
+    <rect x="236" y="112" width="244" height="96" rx="22" fill="#FF6634"/><rect x="236" y="112" width="244" height="22" rx="10" fill="#ff8a63"/>
+    <rect x="470" y="150" width="14" height="46" rx="5" fill="#2b2f2d"/>
+    <rect x="124" y="30" width="136" height="150" rx="14" fill="#2b2f2d"/><rect x="136" y="44" width="112" height="86" rx="8" fill="#a9c9d4" opacity=".85"/>
+    <rect x="112" y="18" width="160" height="16" rx="6" fill="#FF6634"/>
+    <rect x="428" y="60" width="12" height="60" rx="5" fill="#2b2f2d"/>
+    <g transform="translate(186 214)"><circle r="90" fill="#15110d"/><circle id="trw1" r="52" fill="#2b2f2d" stroke="#FF6634" stroke-width="10"/><g id="trsp1" stroke="#8a8f8a" stroke-width="8"><path d="M-48 0H48M0 -48V48M-34 -34L34 34M34 -34L-34 34"/></g></g>
+    <g transform="translate(430 258)"><circle r="54" fill="#15110d"/><circle r="26" fill="#2b2f2d" stroke="#FF6634" stroke-width="7"/><g id="trsp2" stroke="#8a8f8a" stroke-width="6"><path d="M-24 0H24M0 -24V24"/></g></g>
+  </g></svg>`;
+
+// field rows (perspective)
+(function () {
+  const g = $('rows'); let s = '';
+  for (let i = -14; i <= 14; i++) {
+    const x2 = 540 + i * 190; s += `<path d="M540 868 L${x2} 1920" stroke-width="${i % 2 ? 6 : 14}" stroke-opacity="${i % 2 ? .45 : .75}"/>`;
+  }
+  g.innerHTML = s;
+  let c = '';
+  for (let i = 0; i < 90; i++) {
+    const yy = 880 + Math.pow(rnd(), 1.8) * 1000, k = (yy - 868) / 1052, xx = 540 + (rnd() - .5) * 2400 * k;
+    c += `<ellipse cx="${xx}" cy="${yy}" rx="${6 + 18 * k}" ry="${3 + 8 * k}" fill="#${rnd() > .5 ? '8a5a30' : '3a2412'}" opacity="${.35 + .4 * k}"/>`;
+  }
+  $('clods').innerHTML = c;
+})();
+
+// icons for chips / questions
+const IC = {
+  potato: '<svg width="52" height="52" viewBox="0 0 48 48"><ellipse cx="24" cy="26" rx="18" ry="13" transform="rotate(-18 24 26)" fill="#d9b57a"/><g fill="#9c7442"><circle cx="17" cy="25" r="1.8"/><circle cx="26" cy="22" r="1.6"/><circle cx="30" cy="29" r="1.8"/></g></svg>',
+  onion: '<svg width="52" height="52" viewBox="0 0 48 48"><path d="M24 5c1 5 1 7 0 10M24 5c-3 3-4 6-4 10" stroke="#8AA98A" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M24 12c9 5 15 12 15 20 0 6-6 10-15 10S9 38 9 32c0-8 6-15 15-20Z" fill="#e0a339"/></svg>',
+  carrot: '<svg width="52" height="52" viewBox="0 0 48 48"><path d="M30 14c6 6 4 12-2 20L10 44 14 26c8-4 14-8 16-12Z" fill="#FF6634"/><path d="M30 14c1-6 4-9 9-10M30 14c-1-5 0-9 4-12M30 14c3-3 8-4 12-2" stroke="#6ea46f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>',
+  apple: '<svg width="52" height="52" viewBox="0 0 48 48"><path d="M24 14c-5-5-16-3-16 9 0 10 7 20 12 20 2 0 3-1 4-1s2 1 4 1c5 0 12-10 12-20 0-12-11-14-16-9Z" fill="#e3463b"/><path d="M24 14c0-5 2-8 6-10" stroke="#6b4a2a" stroke-width="3" fill="none" stroke-linecap="round"/></svg>',
+  box: '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF6634" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v9l-9 5-9-5V8Z"/><path d="M3 8l9 5 9-5M12 13v9"/></svg>',
+  scale: '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF6634" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M5 7h14M5 7l-3 7a3 3 0 0 0 6 0L5 7ZM19 7l-3 7a3 3 0 0 0 6 0l-3-7Z"/></svg>',
+  price: '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF6634" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l9.5 9.5a2 2 0 0 1 0 2.8l-4.7 4.7a2 2 0 0 1-2.8 0L3 12Z"/><circle cx="7.5" cy="8.5" r="1.3" fill="#FF6634"/></svg>',
+};
+[['potato', 'картофель'], ['onion', 'лук'], ['carrot', 'морковь'], ['apple', 'яблоки']].forEach(([ic, lb], i) => {
+  const d = document.createElement('div'); d.className = 'fchip'; d.id = 'bc' + i;
+  d.style.position = 'relative'; d.style.fontSize = '30px'; d.style.padding = '10px 20px 10px 12px'; d.innerHTML = IC[ic] + lb; $('bchips').appendChild(d);
+});
+const QS = [['box', 'Где хранить?'], ['scale', 'Как не потерять вес?'], ['price', 'Как сохранить цену?']];
+QS.forEach(([ic, tx], i) => { const d = document.createElement('div'); d.className = 'q'; d.id = 'q' + i; d.style.top = (730 + i * 172) + 'px'; d.innerHTML = `<div class="ic">${IC[ic]}</div><span>${tx}</span>`; $('qs').appendChild(d); });
+
+// grain
+const gctx = $('grain').getContext('2d'); const grainFrames = [];
+for (let f = 0; f < 4; f++) { const img = gctx.createImageData(540, 960); for (let i = 0; i < img.data.length; i += 4) { const v = rnd() * 255; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 255; } grainFrames.push(img); }
+
+function headline(id, lt, step = .167, t0 = .08) {
+  document.querySelectorAll(`#${id} .ln`).forEach((l, i) => { const p = E.expo(P(lt, t0 + i * step, t0 + .52 + i * step)); l.style.transform = `translateY(${(1 - p) * 110}%)`; });
+}
+const pop = (el, p, from = .7, dy = 70) => { el.style.opacity = clamp(p * 1.4); el.style.transform = `translateY(${(1 - p) * dy}px) scale(${lerp(from, 1, p)})`; };
+const set = (id, tr) => { const e = $(id); if (e) e.setAttribute('transform', tr); };
+
+function idle(pfx, t, o = {}) {
+  const b = Math.sin(t * 5 + (o.ph || 0));
+  set(pfx + 'up', `translate(0 ${b * 3})`);
+  set(pfx + 'head', `rotate(${Math.sin(t * 3 + (o.ph || 0)) * (o.tilt ?? 3)} 150 140)`);
+}
+
+const U = {
+  sa(t) {
+    headline('sah', t);
+    const h = $('sah'); const sp = P(t, 0, .3); h.style.transform = `scale(${lerp(.8, 1, E.back(sp))})`; h.style.opacity = clamp(sp * 3); h.style.transformOrigin = '0 50%';
+    const pf = E.back(P(t, .55, 1.05)), pt = E.back(P(t, .8, 1.3));
+    pop($('rf'), pf, .75, 260); pop($('rt'), pt, .75, 260);
+    idle('F', t, { ph: 0 }); idle('T', t, { ph: 1.3, tilt: 5 });
+    set('Fcrate', `translate(0 ${Math.sin(t * 5) * 5})`);
+    set('FarmL', `rotate(${Math.sin(t * 5) * 3} 92 200)`); set('FarmR', `rotate(${-Math.sin(t * 5) * 3} 208 200)`);
+    // trader raises the phone, nods
+    const up = E.out5(P(t, 1.3, 1.8)); const sw = Math.sin(t * 6) * 4;
+    set('TarmR', `rotate(${-lerp(8, 142, up) + sw * up} 208 200)`); set('TarmL', `rotate(${6 + Math.sin(t * 4) * 2} 92 200)`);
+    const ph = $('Tphone'); if (ph) ph.style.opacity = 1;
+    // pulsing 'ping' ring from the phone
+    $('rf').style.boxShadow = `0 60px 120px rgba(0,0,0,.55), 0 0 0 ${E.out3(P(t, 1.4, 2.2)) * 0}px rgba(255,102,52,.0)`;
+  },
+  sb(t) {
+    headline('sbh', t);
+    const camx = Math.sin(t * .8) * 8; $('field').style.transform = `translateX(${camx}px) scale(${1.04 + t * .012})`;
+    // tractor drives across
+    const trp = E.inOut(P(t, .1, 2.5)); const tx = lerp(-920, 960, trp);
+    $('tractor').style.transform = `translate(${tx}px, 960px) scale(.72)`; $('tractor').style.opacity = clamp(P(t, 0, .15) * 4);
+    const rot = t * 220; $('trw1').parentNode.setAttribute('transform', `translate(186 214) rotate(${rot})`);
+    document.getElementById('trsp1').setAttribute('transform', `rotate(${rot})`); document.getElementById('trsp2').setAttribute('transform', `rotate(${rot * 1.8})`);
+    $('trsvg').style.transform = `translateY(${Math.sin(t * 22) * 1.5}px)`;
+    // workers: bend, grab, throw into the crate
+    WK.forEach((w, i) => {
+      const cyc = ((t * .9 + w.ph) % 1);
+      const a = cyc < .45 ? E.inOut(cyc / .45) : cyc < .6 ? 1 : 1 - E.inOut((cyc - .6) / .4);
+      const ang = a * 52, dy = a * 36;
+      set('W' + i + 'up', `translate(0 ${dy}) rotate(${ang} 150 320)`);
+      set('W' + i + 'armL', `rotate(${-ang * .9 + a * 16} 92 200)`); set('W' + i + 'armR', `rotate(${-ang * .9 + a * 16} 208 200)`);
+      set('W' + i + 'head', `rotate(${a * 6} 150 140)`);
+      // produce sprite: spawns at the hands when bent, flies to the crate while standing up
+      const sp = $('sp' + i), pf = cyc < .6 ? 0 : (cyc - .6) / .4; const rad = ang * Math.PI / 180;
+      const hx = 150 + 130 * Math.sin(rad) + 22, hy = 320 - 130 * Math.cos(rad) + 130 + dy;
+      if (cyc >= .5 && cyc < 1) {
+        const q = clamp((cyc - .5) / .5); const x = lerp(hx, 312, E.inOut(q)), y = lerp(hy, 418, q) - Math.sin(q * Math.PI) * 120;
+        sp.setAttribute('cx', x); sp.setAttribute('cy', y); sp.setAttribute('opacity', 1); sp.setAttribute('fill', ['#e0a339', '#d9b57a', '#e3463b', '#FF6634'][(Math.floor(t * .9 + w.ph) + i) % 4]);
+      } else sp.setAttribute('opacity', 0);
+      const d = $('w' + i); const pp = E.back(P(t, .45 + i * .2, .9 + i * .2)); d.style.opacity = clamp(pp * 2); d.style.transform = `scale(${lerp(.6, 1, pp)})`; d.style.transformOrigin = '50% 100%';
+    });
+    [0, 1, 2, 3].forEach(i => pop($('bc' + i), E.back(P(t, 1.2 + i * .18, 1.6 + i * .18)), .6, 60));
+  },
+  sc(t) {
+    headline('sch', t);
+    const n = Math.floor(P(t, .75, 1.6) * 3.99); $('dots').textContent = '.'.repeat(clamp(n, 0, 3)).replace(/\./g, '…').slice(0, n > 0 ? 1 : 0);
+    QS.forEach((_, i) => {
+      const p = E.out5(P(t, .75 + i * .2, 1.2 + i * .2)); const e = $('q' + i);
+      e.style.opacity = clamp(p * 1.5); e.style.transform = `translateX(${(1 - p) * 1100}px) skewX(${(1 - p) * -14}deg)`;
+    });
+    const qm = P(t, 1.75, 2.15), s = qm < 1 ? lerp(2.4, 1, E.back(qm)) : 1 + Math.sin((t - 2.15) * 6) * .02;
+    $('qmark').style.opacity = clamp(qm * 3); $('qmark').style.transform = `scale(${s}) rotate(${(1 - E.out3(qm)) * -14}deg)`;
+  },
+};
+
+let lastScene = null;
+window.seek = function (t) {
+  t = clamp(t, 0, DUR - 1e-6);
+  const sc = SC.find(s => t >= s.s && t < s.e) || SC[SC.length - 1];
+  if (lastScene !== sc.id) { SC.forEach(s => $(s.id).style.display = s.id === sc.id ? 'block' : 'none'); lastScene = sc.id; }
+  const lt = t - sc.s, dur = sc.e - sc.s;
+  U[sc.id](lt, dur);
+  const el = $(sc.id); let tx = 0, blur = 0, fl = 0;
+  const outP = P(lt, dur - .12, dur);
+  if (outP > 0) { tx = -E.in3(outP) * 260; blur = outP * 22; }
+  const inP = P(lt, 0, .18);
+  if (sc.id !== 'sa' && inP < 1) { tx = (1 - E.out3(inP)) * 300; blur = Math.max(blur, (1 - inP) * 24); fl = 1 - inP; }
+  el.style.transform = `translateX(${tx}px)`; el.style.filter = blur > .2 ? `blur(${blur}px)` : 'none';
+  const flash = $('flash'); flash.style.opacity = fl * .5; flash.style.transform = `translateX(${(1 - fl) * 900 - 450}px)`;
+  gctx.putImageData(grainFrames[Math.floor(t * 30) % grainFrames.length], 0, 0);
+};
+window.ready = (async () => { await document.fonts.ready; window.seek(0); return true; })();
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+
+:root{
+  --ink:#0b0d0c; --ink2:#141917; --orange:#FF6634; --green:#507F51; --lg:#8AA98A;
+  --white:#ffffff; --muted:rgba(255,255,255,.62); --line:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--ink);
+  font-family:"Inter",sans-serif;color:var(--white);-webkit-font-smoothing:antialiased}
+#stage{position:absolute;inset:0;overflow:hidden;background:var(--ink)}
+.scene{position:absolute;inset:0;display:none;overflow:hidden;will-change:transform,filter}
+.bg{position:absolute;inset:-80px;background-size:cover;background-position:center}
+.shade{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(11,13,12,.92) 0%,rgba(11,13,12,.55) 30%,rgba(11,13,12,.62) 60%,rgba(11,13,12,.96) 100%)}
+.tint-o{position:absolute;inset:0;background:radial-gradient(900px 700px at 80% 15%,rgba(255,102,52,.22),transparent 70%)}
+.tint-g{position:absolute;inset:0;background:radial-gradient(900px 800px at 15% 85%,rgba(80,127,81,.30),transparent 70%)}
+
+/* ---------- typography ---------- */
+.hl{position:absolute;left:84px;right:84px;top:300px;font-weight:800;text-transform:uppercase;
+  letter-spacing:-.025em;line-height:.92;transform-origin:0 50%}
+.hl .ln{display:block;font-size:112px;will-change:transform,opacity}
+.hl .o{color:var(--orange)}
+.hl .g{color:var(--lg)}
+.hl .sub{display:block;margin-top:26px;font-size:44px;font-weight:500;text-transform:none;
+  letter-spacing:-.01em;line-height:1.15;color:rgba(255,255,255,.86)}
+.mask{display:block;overflow:hidden;padding-bottom:6px}
+
+/* ---------- chrome ---------- */
+.eyebrow{position:absolute;left:84px;top:178px;display:flex;align-items:center;gap:18px;
+  font-size:26px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;z-index:30}
+.eyebrow .brand{display:flex;align-items:center;gap:12px;padding:12px 20px;border-radius:999px;
+  background:rgba(255,255,255,.08);border:1.5px solid var(--line);backdrop-filter:blur(10px)}
+.eyebrow .dot{width:12px;height:12px;border-radius:50%;background:var(--orange);box-shadow:0 0 18px var(--orange)}
+.eyebrow .num{color:var(--muted)}
+.eyebrow .topic{color:var(--lg)}
+.corner{position:absolute;width:56px;height:56px;border-color:rgba(255,255,255,.55);border-style:solid;z-index:30}
+.c-tl{left:40px;top:120px;border-width:3px 0 0 3px}
+.c-tr{right:40px;top:120px;border-width:3px 3px 0 0}
+.c-bl{left:40px;bottom:120px;border-width:0 0 3px 3px}
+.c-br{right:40px;bottom:120px;border-width:0 3px 3px 0}
+#progress{position:absolute;left:84px;right:84px;bottom:150px;height:6px;border-radius:3px;
+  background:rgba(255,255,255,.12);z-index:30;overflow:hidden}
+#progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),#ff9a6e);border-radius:3px}
+#captions{position:absolute;left:84px;right:84px;bottom:206px;z-index:30;display:flex;justify-content:center}
+#captions .cap{max-width:900px;padding:22px 30px;border-radius:22px;background:rgba(10,12,11,.72);
+  border:1.5px solid var(--line);backdrop-filter:blur(14px);font-size:38px;font-weight:600;
+  line-height:1.25;text-align:center;letter-spacing:-.005em}
+#captions .w{opacity:.22;transition:none}
+#captions .w.on{opacity:1}
+#captions .w.hot{color:var(--orange)}
+#grain{position:absolute;inset:0;z-index:40;pointer-events:none;opacity:.075;mix-blend-mode:overlay}
+#flash{position:absolute;inset:0;z-index:35;pointer-events:none;opacity:0;
+  background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.9) 50%,transparent 70%)}
+#vignette{position:absolute;inset:0;z-index:34;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+
+/* ---------- generic UI ---------- */
+.chip{position:absolute;display:inline-flex;align-items:center;gap:14px;padding:18px 28px;border-radius:999px;
+  font-size:34px;font-weight:700;background:rgba(14,17,16,.82);border:1.5px solid var(--line);
+  backdrop-filter:blur(12px);white-space:nowrap}
+.chip b{color:var(--orange)}
+.chip.g b{color:var(--lg)}
+.card{position:absolute;border-radius:36px;background:linear-gradient(160deg,rgba(32,38,35,.92),rgba(14,17,16,.94));
+  border:1.5px solid rgba(255,255,255,.12);box-shadow:0 60px 120px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08)}
+.p3d{position:absolute;inset:0;perspective:1800px;perspective-origin:50% 45%}
+.box{position:absolute;transform-style:preserve-3d}
+.face{position:absolute;backface-visibility:hidden}
+
