@@ -17,6 +17,11 @@
 .tag{position:absolute;left:90px;width:900px;height:170px;border-radius:40px;display:flex;align-items:center;gap:36px;padding:0 44px;font-size:64px;font-weight:800;letter-spacing:-.02em;text-transform:uppercase;
   background:linear-gradient(160deg,rgba(32,38,35,.92),rgba(14,17,16,.94));border:1.5px solid var(--line);box-shadow:0 40px 80px rgba(0,0,0,.45)}
 .tag .ic{width:100px;height:100px;border-radius:28px;display:grid;place-items:center;background:rgba(255,102,52,.14);border:2px solid rgba(255,102,52,.55)}
+.b3{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d}
+.f3{position:absolute;backface-visibility:hidden}
+.f3.v{backface-visibility:visible}
+.wall{background:repeating-linear-gradient(90deg,#eef1ef 0 56px,#c9d0ce 56px 59px)}
+.roof{background:repeating-linear-gradient(90deg,#c4ccd1 0 40px,#9aa5ab 40px 43px)}
 .node{position:absolute;display:flex;flex-direction:column;align-items:center;gap:18px;font-size:40px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
 .node i{width:36px;height:36px;border-radius:50%;display:block}
 </style>
@@ -58,27 +63,19 @@
 
 <!-- ============ S3 SOLUTION ============ -->
 <section class="scene" id="s3">
-  <div class="gridbg"></div><div class="glow-o" style="left:-300px;top:500px"></div>
+  <div class="gridbg"></div><div class="glow-o" style="left:-300px;top:500px"></div><div class="glow-g" style="left:350px;top:900px"></div>
   <div class="hl" id="s3h">
-    <span class="mask"><span class="ln" style="font-size:108px">Холодильные</span></span>
-    <span class="mask"><span class="ln o" style="font-size:108px">камеры</span></span>
-    <span class="sub" style="font-size:46px">FSC · в аренду под Алматы, у БАКАД</span>
+    <span class="mask"><span class="ln" style="font-size:112px">Всесезонное</span></span>
+    <span class="mask"><span class="ln o" style="font-size:76px">овощехранилище</span></span>
+    <span class="sub" style="font-size:46px">FSC · в аренду</span>
   </div>
-  <div class="card" id="s3map" style="left:70px;top:790px;width:940px;height:560px;overflow:hidden">
-    <svg width="940" height="560" viewBox="0 0 940 560">
-      <defs><pattern id="mg" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" fill="none" stroke="rgba(255,255,255,.05)"/></pattern></defs>
-      <rect width="940" height="560" fill="url(#mg)"/>
-      <ellipse cx="400" cy="250" rx="290" ry="200" fill="rgba(138,169,138,.10)"/>
-      <ellipse id="s3ring" cx="400" cy="250" rx="290" ry="200" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="14" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
-      <g stroke="rgba(255,255,255,.18)" stroke-width="6" fill="none"><path d="M400 50V450M110 250H690M210 110L590 390M590 110L210 390"/></g>
-      <text x="400" y="262" text-anchor="middle" font-family="Inter" font-weight="800" font-size="44" fill="rgba(255,255,255,.55)" letter-spacing="4">АЛМАТЫ</text>
-      <text id="s3lab" x="150" y="60" font-family="Inter" font-weight="800" font-size="34" fill="#fff" letter-spacing="3">БАКАД</text>
-      <path id="s3route" d="M760 430 C 700 400, 650 330, 592 292" fill="none" stroke="#FF6634" stroke-width="8" stroke-dasharray="3 16" stroke-linecap="round"/>
-      <circle id="s3p1" cx="760" cy="430" r="46" fill="rgba(255,102,52,.28)"/><circle id="s3p2" cx="760" cy="430" r="46" fill="rgba(255,102,52,.28)"/>
-      <circle cx="760" cy="430" r="22" fill="#FF6634" stroke="#fff" stroke-width="6"/>
-      <text x="760" y="510" text-anchor="middle" font-family="Inter" font-weight="800" font-size="40" fill="#FF6634">FSC</text>
-    </svg>
-    <div class="chip" id="s3chip" style="right:34px;top:34px;font-size:32px"><b>20 мин</b> до БАКАД</div>
+  <div class="card" id="s3m" style="left:50px;top:700px;width:980px;height:660px;overflow:hidden;padding:0;perspective:1900px;perspective-origin:50% 38%">
+    <div id="s3stage" style="position:absolute;left:490px;top:400px;width:0;height:0;transform-style:preserve-3d"></div>
+    <div id="s3far" style="position:absolute;left:30px;top:28px;display:flex;align-items:center;gap:16px;padding:16px 28px 16px 20px;border-radius:999px;background:var(--orange);color:#111;font-size:46px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;box-shadow:0 20px 60px rgba(255,102,52,.45)">
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="#111"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+      20 мин от Алматы
+    </div>
+    <div id="s3tag" style="position:absolute;left:30px;bottom:26px;font-size:30px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.7)">FRESH STORAGE CENTER</div>
   </div>
   <div id="s3crops"></div>
 </section>
@@ -191,12 +188,12 @@ const fmt = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 const SCENES = [
   { id: 's1', s: 0,    e: 2.5,  topic: 'ВОПРОС' },
   { id: 's2', s: 2.5,  e: 5,    topic: 'РЕЗУЛЬТАТ' },
-  { id: 's3', s: 5,    e: 8,    topic: 'РЕШЕНИЕ' },
-  { id: 's4', s: 8,    e: 12.5, topic: 'ЦИФРЫ' },
-  { id: 's5', s: 12.5, e: 15,   topic: 'ДЛЯ КОГО' },
-  { id: 's6', s: 15,   e: 19.5, topic: 'БРОНЬ' },
+  { id: 's3', s: 5,    e: 9.5,  topic: 'РЕШЕНИЕ' },
+  { id: 's4', s: 9.5,  e: 14,   topic: 'ЦИФРЫ' },
+  { id: 's5', s: 14,   e: 16.5, topic: 'ДЛЯ КОГО' },
+  { id: 's6', s: 16.5, e: 21,   topic: 'БРОНЬ' },
 ];
-const DUR = 19.5; window.DURATION = DUR;
+const DUR = 21; window.DURATION = DUR;
 
 // ---------------- icons ----------------
 const IC = {
@@ -248,6 +245,73 @@ for (let i = 0; i < 6; i++) {
   Object.assign(b.style, { position: 'absolute', left: (col * 134) + 'px', top: (row * 70) + 'px', width: '126px', height: '62px', borderRadius: '14px', background: 'linear-gradient(135deg,#FF6634,#cc4a1c)', border: '1.5px solid rgba(255,255,255,.25)' });
   $('c4stack').appendChild(b);
 }
+
+// ---------------- 3D warehouse ----------------
+const SHADE = { front: 1, back: .75, right: .84, left: .72, top: 1.06, bottom: .5 };
+function box3(parent, o) {
+  const c = document.createElement('div'); c.className = 'b3'; c.dataset.x = o.x; c.dataset.y = o.y; c.dataset.z = o.z;
+  c.style.transform = `translate3d(${o.x}px,${o.y}px,${o.z}px)`;
+  const { w, h, d } = o; const F = o.f || {};
+  const mk = (name, fw, fh, tr) => {
+    const f = document.createElement('div'); f.className = 'f3 ' + (F[name + 'Cls'] || ''); f.style.width = fw + 'px'; f.style.height = fh + 'px';
+    f.style.marginLeft = (-fw / 2) + 'px'; f.style.marginTop = (-fh / 2) + 'px'; f.style.transform = tr;
+    f.style.background = F[name] || F.all || '#ccc'; f.style.filter = `brightness(${SHADE[name]})`;
+    if (F[name + 'Html']) f.innerHTML = F[name + 'Html']; c.appendChild(f); return f;
+  };
+  mk('front', w, h, `translateZ(${d / 2}px)`); mk('back', w, h, `rotateY(180deg) translateZ(${d / 2}px)`);
+  mk('right', d, h, `rotateY(90deg) translateZ(${w / 2}px)`); mk('left', d, h, `rotateY(-90deg) translateZ(${w / 2}px)`);
+  if (!o.noTop) mk('top', w, d, `rotateX(90deg) translateZ(${h / 2}px)`);
+  parent.appendChild(c); return c;
+}
+const LOGO = `<svg viewBox="0 0 300 250" width="150" height="125" style="position:absolute;left:34px;top:26px"><path d="M22 112 L150 30 L282 106" fill="none" stroke="#e8452a" stroke-width="30"/><g fill="#14100c"><circle cx="60" cy="160" r="32"/><circle cx="126" cy="160" r="32"/><circle cx="60" cy="220" r="32"/><circle cx="126" cy="220" r="32"/><circle cx="192" cy="220" r="32"/><circle cx="258" cy="220" r="32"/></g></svg>
+  <div style="position:absolute;left:196px;top:40px;font:800 30px/1 Inter;color:#14100c;letter-spacing:.01em">FRESH<br>STORAGE<br>CENTER</div>`;
+const fansHtml = (() => { let h = ''; for (let r = 0; r < 2; r++) for (let c = 0; c < 4; c++) h += `<div class="fan" style="position:absolute;left:${14 + c * 38}px;top:${14 + r * 54}px;width:34px;height:34px;border-radius:50%;background:#1a1d1c;border:3px solid #9aa3a6;overflow:hidden"><svg width="28" height="28" viewBox="-14 -14 28 28" style="margin:0"><g class="blades"><path d="M0 0L10 -3L10 3Z M0 0L-10 3L-10 -3Z M0 0L-3 -10L3 -10Z M0 0L3 10L-3 10Z" fill="#c9d0d2"/></g></svg></div>`; return h; })();
+
+const W3 = { hall: { w: 520, h: 150, d: 280 } };
+const world = document.createElement('div'); world.id = 's3world'; world.className = 'b3'; $('s3stage').appendChild(world);
+const parts = [];
+(function buildWarehouse() {
+  const addFlat = (css, w, d, x, y, z, extra = '') => { const f = document.createElement('div'); f.className = 'f3 v'; f.style.cssText = `width:${w}px;height:${d}px;margin-left:${-w / 2}px;margin-top:${-d / 2}px;transform:translate3d(${x}px,${y}px,${z}px) rotateX(90deg);background:${css};${extra}`; world.appendChild(f); return f; };
+  addFlat('#7a5d3e', 1500, 1100, 0, 0, 0); addFlat('#2d3130', 900, 600, 40, -1, 60, 'border-radius:6px;box-shadow:0 0 0 4px #3b403e');
+  // parking lines on the asphalt
+  let lines = ''; for (let i = 0; i < 6; i++) lines += `<div style="position:absolute;left:${60 + i * 120}px;top:340px;width:6px;height:150px;background:rgba(255,255,255,.7)"></div>`;
+  const pk = addFlat('transparent', 900, 600, 40, -2, 60); pk.innerHTML = lines;
+  // hall
+  const H = W3.hall;
+  const hall = box3(world, { x: 0, y: -75, z: -60, w: H.w, h: H.h, d: H.d, noTop: true, f: {
+    front: '#e9edeb', frontCls: 'wall', frontHtml: `<div style="position:absolute;left:24px;top:30px;width:240px;height:124px;background:#f6f8f7;border-radius:6px">${LOGO}</div>
+      <div style="position:absolute;left:290px;top:14px;width:2px;height:136px;background:#9aa5a2"></div><div style="position:absolute;left:408px;top:30px;width:92px;height:120px;border:3px solid #7f8a87;background:repeating-linear-gradient(180deg,#e5e9e7 0 20px,#c3cac8 20px 23px)"></div>`,
+    back: '#d4dbd9', right: '#dfe4e2', left: '#dfe4e2', all: '#e5e9e7' } });
+  parts.push({ el: hall, y: -75, d: 0 });
+  // gable roof
+  const R = 40, L = Math.sqrt(140 * 140 + R * R), al = Math.atan(R / 140) * 180 / Math.PI;
+  const slope = (zc, rot) => { const f = document.createElement('div'); f.className = 'f3 v roof'; f.style.cssText = `width:${H.w + 24}px;height:${L}px;margin-left:${-(H.w + 24) / 2}px;margin-top:${-L / 2}px;transform:translate3d(0,${-H.h - R / 2}px,${zc}px) rotateX(${rot}deg);filter:brightness(${rot > 0 ? 1.12 : .9})`; return f; };
+  const roofG = document.createElement('div'); roofG.className = 'b3'; roofG.dataset.y = 0; roofG.appendChild(slope(-60 + 70, 90 - al)); roofG.appendChild(slope(-60 - 70, -(90 - al)));
+  [['right', 90, 1], ['left', -90, -1]].forEach(([n, ry, sg]) => { const g = document.createElement('div'); g.className = 'f3'; g.style.cssText = `width:280px;height:${R}px;margin-left:-140px;margin-top:${-R / 2}px;transform:translate3d(${sg * (H.w / 2)}px,${-H.h - R / 2}px,-60px) rotateY(${ry}deg);background:#dfe4e2;clip-path:polygon(0 100%,50% 0,100% 100%);filter:brightness(${sg > 0 ? .84 : .72})`; roofG.appendChild(g); });
+  world.appendChild(roofG); parts.push({ el: roofG, y: 0, d: 1 });
+  // office annex
+  const annex = box3(world, { x: -325, y: -60, z: 10, w: 130, h: 120, d: 140, f: { front: '#eef1ef', frontCls: 'wall', frontHtml: '<div style="position:absolute;left:20px;top:22px;width:34px;height:44px;background:#5d7a8a;border:3px solid #cfd6d4"></div><div style="position:absolute;left:76px;top:22px;width:34px;height:44px;background:#5d7a8a;border:3px solid #cfd6d4"></div><div style="position:absolute;left:44px;top:70px;width:42px;height:50px;background:#d9dfdd;border:3px solid #9aa5a2"></div>', top: '#b9c2c6', all: '#dfe4e2' } });
+  parts.push({ el: annex, y: -60, d: 2 });
+  // condenser block with 8 fans
+  const cond = box3(world, { x: 30, y: -62, z: 108, w: 170, h: 124, d: 56, f: { front: '#f1f4f2', frontHtml: fansHtml, top: '#aeb7ba', all: '#d7dddb' } });
+  parts.push({ el: cond, y: -62, d: 3 });
+  // canopy + sign + posts
+  const canopy = box3(world, { x: 190, y: -136, z: 140, w: 250, h: 8, d: 120, f: { all: '#c0c8cc', top: '#b2bbc0' } }); parts.push({ el: canopy, y: -136, d: 4 });
+  const sign = box3(world, { x: 190, y: -112, z: 200, w: 250, h: 30, d: 4, noTop: true, f: { front: '#f7f8f7', frontHtml: '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;font:800 13px Inter;color:#222;letter-spacing:.02em"><span style="width:16px;height:16px;border-radius:50%;background:#14100c;display:block"></span>ВСЕСЕЗОННОЕ ОВОЩЕХРАНИЛИЩЕ</div>', all: '#dfe4e2' } }); parts.push({ el: sign, y: -112, d: 5 });
+  [[75, 205], [305, 205]].forEach(([x, z], i) => parts.push({ el: box3(world, { x, y: -62, z, w: 10, h: 124, d: 10, noTop: true, f: { all: '#6a7377' } }), y: -62, d: 5 }));
+  // entrance door opening under canopy
+  const door = box3(world, { x: 190, y: -55, z: 83, w: 150, h: 110, d: 4, noTop: true, f: { front: '#2a3033', all: '#2a3033' } }); parts.push({ el: door, y: -55, d: 4 });
+  // trucks
+  window.TRUCKS = [0, 1].map(i => {
+    const g = document.createElement('div'); g.className = 'b3'; g.style.transform = `translate3d(${140 + i * 100}px,0,420px)`;
+    const col = i ? '#d8dcde' : '#e6e8e9';
+    box3(g, { x: 0, y: -36, z: -30, w: 56, h: 56, d: 130, f: { all: col, front: col, top: '#eef0f0', right: '#cfd4d6', left: '#cfd4d6' } });
+    box3(g, { x: 0, y: -22, z: 56, w: 56, h: 40, d: 40, f: { all: i ? '#2b5ea8' : '#e5522d', front: i ? '#2b5ea8' : '#e5522d', frontHtml: '<div style="position:absolute;left:6px;top:6px;right:6px;height:16px;background:#a9c9d4"></div>', top: i ? '#3a6cb8' : '#f0613b' } });
+    box3(g, { x: 0, y: -4, z: -4, w: 52, h: 8, d: 170, noTop: true, f: { all: '#15110d' } });
+    world.appendChild(g); return g;
+  });
+})();
+
 const dust = [];
 for (let i = 0; i < 60; i++) {
   const d = document.createElement('div'); d.className = 'dust';
@@ -287,13 +351,24 @@ const U = {
   },
   s3(t) {
     headline('s3h', t);
-    const mp = E.out5(P(t, .15, .8)); $('s3map').style.opacity = clamp(mp * 1.5); $('s3map').style.transform = `translateY(${(1 - mp) * 240}px) scale(${lerp(.92, 1, mp)})`;
-    $('s3ring').setAttribute('stroke-dashoffset', 1 - E.inOut(P(t, .35, 1.3)));
-    $('s3lab').setAttribute('opacity', E.out3(P(t, 1.0, 1.3)));
-    const dr = $('s3route'); dr.setAttribute('opacity', E.out3(P(t, .9, 1.2))); dr.setAttribute('stroke-dashoffset', -t * 40);
-    ['s3p1', 's3p2'].forEach((id, k) => { const r = ((t * 1.1 + k * .5) % 1); $(id).setAttribute('r', 22 + r * 50); $(id).setAttribute('opacity', (1 - r) * .8); });
-    pop($('s3chip'), E.back(P(t, 1.3, 1.7)), .6); $('s3chip').style.transform += ' translateX(0)';
-    cropsList.forEach((_, i) => pop($('s3c' + i), E.back(P(t, 1.5 + i * .18, 1.9 + i * .18)), .6));
+    const mp = E.out5(P(t, .15, .8)); const card = $('s3m');
+    card.style.opacity = clamp(mp * 1.5); card.style.transform = `translateY(${(1 - mp) * 240}px) scale(${lerp(.92, 1, mp)})`;
+    // camera orbit
+    const orbit = -36 + t * 9 + Math.sin(t * .9) * 4;
+    world.style.transform = `scale(.96) rotateX(-27deg) rotateY(${orbit}deg) translateY(0px)`;
+    // buildings drop in one by one
+    parts.forEach((p, i) => {
+      const k = E.out5(P(t, .35 + p.d * .12, .95 + p.d * .12));
+      p.el.style.transform = p.el === undefined ? '' : (p.d === 1 ? `translateY(${(1 - k) * -520}px)` : `translate3d(${p.el.dataset.x || 0}px,${(+p.el.dataset.y || 0) + (1 - k) * -520}px,${p.el.dataset.z || 0}px)`);
+      p.el.style.opacity = clamp(k * 3);
+    });
+    // fans spin
+    document.querySelectorAll('#s3world .blades').forEach(b => b.style.transform = `rotate(${t * 520}deg)`);
+    // trucks reverse in under the canopy
+    TRUCKS.forEach((g, i) => { const k = E.inOut(P(t, 1.0 + i * .5, 2.9 + i * .5)); g.style.transform = `translate3d(${140 + i * 100}px,0,${lerp(520, 168, k)}px)`; g.style.opacity = clamp(P(t, .9 + i * .5, 1.2 + i * .5) * 4); });
+    pop($('s3far'), E.back(P(t, 1.5, 2.0)), .6, -40);
+    $('s3tag').style.opacity = E.out3(P(t, 2.0, 2.6));
+    cropsList.forEach((_, i) => pop($('s3c' + i), E.back(P(t, 2.7 + i * .18, 3.1 + i * .18)), .6));
   },
   s4(t) {
     headline('s4h', t);
